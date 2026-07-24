@@ -6,8 +6,8 @@ public class PackTableController : MonoBehaviour
     [System.Serializable]
     public class PackVariant
     {
-        public string packName;
-        public GameObject packObject;   // Pack Carton / Pack Container / Pack Foil objesinin kendisi
+        public string packName;       // sadece Inspector'da tanımak için (Carton/Container/Foil)
+        public GameObject packObject; // Pack Carton / Pack Container / Pack Foil objesinin kendisi
         public Sprite openSprite;
         public Sprite closedSprite;
     }
@@ -17,57 +17,41 @@ public class PackTableController : MonoBehaviour
 
     public PackingGameManager gameManager;
 
-    private Image image;
-    private Button button;
     private int currentPackIndex = -1;
 
-    // Awake() yerine lazy-load kullanıyoruz: obje sahne başında inactive ise
-    // Awake() hiç çalışmaz ve image/button null kalır. Bu property her
-    // kullanımda component'in atanmış olduğunu garantiler.
-    private Image Image
-    {
-        get
-        {
-            if (image == null) image = GetComponent<Image>();
-            return image;
-        }
-    }
-
-    private Button Btn
-    {
-        get
-        {
-            if (button == null) button = GetComponent<Button>();
-            return button;
-        }
-    }
-
-    // PackTableController.cs — artık kendi Image/Button'ı yok, her metod seçili child'a erişiyor
-
+    // GameManager, bir Pack seçildiğinde çağırır
     public void SetPack(int packIndex)
     {
         currentPackIndex = packIndex;
 
         for (int i = 0; i < packVariants.Length; i++)
-            packVariants[i].packObject.SetActive(i == packIndex);   // sadece seçilen child aktif
+        {
+            bool isSelected = (i == packIndex);
+            packVariants[i].packObject.SetActive(isSelected);
 
-        var img = packVariants[packIndex].packObject.GetComponent<Image>();
-        var btn = packVariants[packIndex].packObject.GetComponent<Button>();
-        img.sprite = packVariants[packIndex].openSprite;
-        btn.interactable = true;
+            if (isSelected)
+            {
+                var img = packVariants[i].packObject.GetComponent<Image>();
+                var btn = packVariants[i].packObject.GetComponent<Button>();
+                img.sprite = packVariants[i].openSprite;
+                btn.interactable = true;
+            }
+        }
     }
 
+    // İlgili child'ın Button OnClick() listesine bağlanacak (Carton=0, Container=1, Foil=2)
     public void OnTableClicked(int packIndex)
     {
         var img = packVariants[packIndex].packObject.GetComponent<Image>();
         var btn = packVariants[packIndex].packObject.GetComponent<Button>();
 
         img.sprite = packVariants[packIndex].closedSprite;
-        btn.interactable = false;
+        btn.interactable = false;   // tekrar tıklanmasın
 
         gameManager.OnPackTableClicked();
     }
 
+    // Trash Bin / reset sırasında GameManager tarafından çağrılır
     public void ResetVisual()
     {
         currentPackIndex = -1;

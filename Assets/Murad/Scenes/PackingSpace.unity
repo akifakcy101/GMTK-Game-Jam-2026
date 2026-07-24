@@ -338,7 +338,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 298057516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnTrashBinPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &298057516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +509,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 407659149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnStickerButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &407659149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +642,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 473548554}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnStickerButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &473548554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,8 +729,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -8.8812, y: -50.1499}
+  m_SizeDelta: {x: 379.1212, y: 239.5605}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &493129452
 MonoBehaviour:
@@ -721,7 +757,7 @@ MonoBehaviour:
     packObject: {fileID: 579343573}
     openSprite: {fileID: 4687874584515825838, guid: d9c4ff297b3f597a4b9a0387668c4637, type: 3}
     closedSprite: {fileID: 4687874584515825838, guid: d9c4ff297b3f597a4b9a0387668c4637, type: 3}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 535009484}
 --- !u!1 &535009483
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +898,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 579343576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493129452}
+        m_TargetAssemblyTypeName: PackTableController, Assembly-CSharp
+        m_MethodName: OnTableClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &579343576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,7 +1168,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 710923678}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnPackSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &710923678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,7 +1373,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 757228661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnStickerButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &757228661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,7 +1506,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 775901561}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493129452}
+        m_TargetAssemblyTypeName: PackTableController, Assembly-CSharp
+        m_MethodName: OnTableClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &775901561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,7 +1639,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 966376399}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnPackSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &966376399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,24 +1737,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086197666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1086197669
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1715,8 +1814,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: -62}
-  m_SizeDelta: {x: 243.48, y: 146.6195}
+  m_AnchoredPosition: {x: -5.7093, y: -47.6124}
+  m_SizeDelta: {x: 178.7747, y: 113.6325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1123659110
 MonoBehaviour:
@@ -2659,7 +2758,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1671886858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 493129452}
+        m_TargetAssemblyTypeName: PackTableController, Assembly-CSharp
+        m_MethodName: OnTableClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1671886858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3326,7 +3437,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1864221608}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnGetPackedGunPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1864221608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3950,7 +4073,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2137545764}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnPackSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2137545764
 MonoBehaviour:
   m_ObjectHideFlags: 0

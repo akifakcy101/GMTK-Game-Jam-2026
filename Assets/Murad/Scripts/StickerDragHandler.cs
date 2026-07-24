@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class StickerDragHandler : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class StickerDragHandler : MonoBehaviour
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             ParentCanvas.transform as RectTransform,
-            Input.mousePosition,
+            Mouse.current.position.ReadValue(),
             ParentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : ParentCanvas.worldCamera,
             out localPoint);
 
@@ -73,7 +74,7 @@ public class StickerDragHandler : MonoBehaviour
         bool isValidPosition = IsFullyInsidePackTable();
         Image.color = isValidPosition ? validColor : invalidColor;
 
-        if (Input.GetMouseButtonDown(0) && isValidPosition)
+        if (Mouse.current.leftButton.wasPressedThisFrame && isValidPosition)
         {
             PlaceSticker();
         }

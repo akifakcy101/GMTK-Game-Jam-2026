@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 407659149}
   - component: {fileID: 407659148}
   m_Layer: 5
-  m_Name: Sticker
+  m_Name: Sticker3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 473548554}
   - component: {fileID: 473548553}
   m_Layer: 5
-  m_Name: Sticker
+  m_Name: Sticker1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,6 +708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bf44f1ecc1ad448ab4a7a6a08ec534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  packVariants: []
+  gameManager: {fileID: 0}
 --- !u!1 &535009483
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +739,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b2ccefc68b84264ae3f6d806f8e849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  gunObject: {fileID: 1123659108}
+  packTable: {fileID: 493129452}
+  stickerButtons:
+  - {fileID: 473548553}
+  - {fileID: 757228660}
+  - {fileID: 407659148}
+  stickerSprites:
+  - {fileID: 6915899087514893700, guid: 20c6a69baaceb16ceaaa2656bc8d781c, type: 3}
+  - {fileID: -4818482060288648135, guid: 586b76b2ff170023b8c914248055ffdb, type: 3}
+  - {fileID: 3100616529026882490, guid: caf0a3badbc148a92aa6b64d2b23b739, type: 3}
+  draggedStickerPreview: {fileID: 1086197666}
+  getPackedGunButton: {fileID: 1864221607}
+  trashBinButton: {fileID: 298057515}
+  nextSceneName: GameScene
 --- !u!4 &535009485
 Transform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1232,7 @@ GameObject:
   - component: {fileID: 757228661}
   - component: {fileID: 757228660}
   m_Layer: 5
-  m_Name: Sticker
+  m_Name: Sticker2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1577,6 +1593,7 @@ GameObject:
   - component: {fileID: 1086197667}
   - component: {fileID: 1086197669}
   - component: {fileID: 1086197668}
+  - component: {fileID: 1086197670}
   m_Layer: 5
   m_Name: Dragged Sticker Preview
   m_TagString: Untagged
@@ -1638,6 +1655,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086197666}
   m_CullTransparentMesh: 1
+--- !u!114 &1086197670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086197666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6bd23a79cb24418bb749dd9967fc4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  validColor: {r: 1, g: 1, b: 1, a: 1}
+  invalidColor: {r: 1, g: 0.4, b: 0.4, a: 0.85}
 --- !u!1 &1123659108
 GameObject:
   m_ObjectHideFlags: 0

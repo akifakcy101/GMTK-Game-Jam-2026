@@ -708,7 +708,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bf44f1ecc1ad448ab4a7a6a08ec534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  packVariants: []
+  packVariants:
+  - packName: Pack Carton
+    packObject: {fileID: 775901558}
+    openSprite: {fileID: 2782558413634534725, guid: 339f79b1db9b79312bbc31eeea9016bb, type: 3}
+    closedSprite: {fileID: 2782558413634534725, guid: 339f79b1db9b79312bbc31eeea9016bb, type: 3}
+  - packName: Pack Container
+    packObject: {fileID: 1671886855}
+    openSprite: {fileID: -5194238497072490378, guid: 0912b9f1f892f61bb882351c6f56cc27, type: 3}
+    closedSprite: {fileID: -5194238497072490378, guid: 0912b9f1f892f61bb882351c6f56cc27, type: 3}
+  - packName: Pack Foil
+    packObject: {fileID: 579343573}
+    openSprite: {fileID: 4687874584515825838, guid: d9c4ff297b3f597a4b9a0387668c4637, type: 3}
+    closedSprite: {fileID: 4687874584515825838, guid: d9c4ff297b3f597a4b9a0387668c4637, type: 3}
   gameManager: {fileID: 0}
 --- !u!1 &535009483
 GameObject:
@@ -2905,7 +2917,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1813318198}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 535009484}
+        m_TargetAssemblyTypeName: PackingGameManager, Assembly-CSharp
+        m_MethodName: OnPutGunPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1813318198
 MonoBehaviour:
   m_ObjectHideFlags: 0

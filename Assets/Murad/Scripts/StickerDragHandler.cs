@@ -15,17 +15,40 @@ public class StickerDragHandler : MonoBehaviour
     private PackingGameManager gameManager;
     private bool isDragging = false;
 
-    void Awake()
+    // Awake() yerine lazy-load: obje sahne başında inactive ise Awake()
+    // hiç çalışmaz ve bu referanslar null kalır. Property her kullanımda
+    // component'in atanmış olduğunu garantiler.
+    private RectTransform RectTransform
     {
-        rectTransform = GetComponent<RectTransform>();
-        image = GetComponent<Image>();
-        canvas = GetComponentInParent<Canvas>();
+        get
+        {
+            if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
+            return rectTransform;
+        }
+    }
+
+    private Image Image
+    {
+        get
+        {
+            if (image == null) image = GetComponent<Image>();
+            return image;
+        }
+    }
+
+    private Canvas ParentCanvas
+    {
+        get
+        {
+            if (canvas == null) canvas = GetComponentInParent<Canvas>(true); // includeInactive: true
+            return canvas;
+        }
     }
 
     // GameManager tarafından çağrılır: sticker sprite'ı ata, hedef Pack Table'ı belirle, sürüklemeyi başlat
     public void BeginPlacement(Sprite stickerSprite, RectTransform packTableRect, PackingGameManager manager)
     {
-        image.sprite = stickerSprite;
+        Image.sprite = stickerSprite;
         targetPackTableRect = packTableRect;
         gameManager = manager;
 
@@ -40,15 +63,15 @@ public class StickerDragHandler : MonoBehaviour
         // Sticker'ı sabit boyutta tutup sadece pozisyonunu mouse'a göre güncelle
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
+            ParentCanvas.transform as RectTransform,
             Input.mousePosition,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+            ParentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : ParentCanvas.worldCamera,
             out localPoint);
 
-        rectTransform.localPosition = localPoint;
+        RectTransform.localPosition = localPoint;
 
         bool isValidPosition = IsFullyInsidePackTable();
-        image.color = isValidPosition ? validColor : invalidColor;
+        Image.color = isValidPosition ? validColor : invalidColor;
 
         if (Input.GetMouseButtonDown(0) && isValidPosition)
         {
@@ -61,7 +84,7 @@ public class StickerDragHandler : MonoBehaviour
         if (targetPackTableRect == null) return false;
 
         Vector3[] stickerCorners = new Vector3[4];
-        rectTransform.GetWorldCorners(stickerCorners);   // sabit boyut, sadece pozisyon değişiyor
+        RectTransform.GetWorldCorners(stickerCorners);   // sabit boyut, sadece pozisyon değişiyor
 
         Vector3[] tableCorners = new Vector3[4];
         targetPackTableRect.GetWorldCorners(tableCorners);
@@ -80,7 +103,7 @@ public class StickerDragHandler : MonoBehaviour
     private void PlaceSticker()
     {
         isDragging = false;
-        image.color = validColor;
+        Image.color = validColor;
         gameManager.OnStickerPlaced();
     }
 }

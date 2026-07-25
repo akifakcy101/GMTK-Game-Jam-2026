@@ -24,8 +24,8 @@ public class InteractableDesk : MonoBehaviour
     public GameObject interactPrompt;
 
     [Header("Aşama İlerleme Ayarı")]
-    [Tooltip("Masa kapatıldığında eşya aşaması otomatik ilerlesin mi? (Placeholder / Test için)")]
-    public bool autoAdvanceOnClose = true;
+    [Tooltip("Masa kapatıldığında eşya aşaması otomatik ilerlesin mi? (Yalnızca mekanik scripti olmayan masalar için)")]
+    public bool autoAdvanceOnClose = false;
 
     private bool isPlayerInRange = false;
     private bool isInteracting = false;

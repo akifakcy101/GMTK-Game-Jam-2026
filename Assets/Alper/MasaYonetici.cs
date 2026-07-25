@@ -100,18 +100,11 @@ public class MasaYonetici : MonoBehaviour
 
     void Update()
     {
-        // 2. OTOMATİK KAPANMA KONTROLÜ
-        // YALNIZCA parmak izleri basıldıktan SONRA ve hiç parmak izi kalmadığında masayı kapat!
-        if (masaAcikMi && izlerBasildiMi && masadakiMevcutEsya != null)
-        {
-            if (masadakiMevcutEsya.transform.childCount == 0)
-            {
-                MasayiKapat();
-            }
-        }
+        // Masanın otomatik kapanmasını engelledik.
+        // Tüm parmak izleri silindiğinde eşya masada kalır, oyuncu E tuşuna basıp masadan ayrıldığında masa kapanır ve aşama ilerler.
     }
 
-    // 3. İŞ BİTİNCE MASAYI KAPATAN FONKSİYON
+    // 3. İŞ BİTİNCE VEYA MASADAN AYRILINCA ÇAĞRILAN KAPATMA FONKSİYONU
     public void MasayiKapat()
     {
         if (!masaAcikMi) return;
@@ -129,12 +122,22 @@ public class MasaYonetici : MonoBehaviour
         if (masaKamerasi != null) masaKamerasi.SetActive(false);
         if (anaOyunKamerasi != null) anaOyunKamerasi.SetActive(true);
 
-        // Envanterdeki eşyanın aşamasını ilerlet (Temizlendi -> Bir sonraki masaya hazır)
+        // KONTROL: Tüm parmak izleri temizlendi mi?
         if (PlayerInventory.Instance != null && PlayerInventory.Instance.hasItem)
         {
-            PlayerInventory.Instance.AdvanceItemStage();
+            if (PlayerInventory.Instance.isFingerprintsGenerated && PlayerInventory.Instance.currentFingerprints.Count == 0)
+            {
+                if (PlayerInventory.Instance.itemStage == 0)
+                {
+                    PlayerInventory.Instance.AdvanceItemStage();
+                    Debug.Log("<color=cyan>[MasaYonetici]</color> Tüm parmak izleri başarıyla temizlendi! Masa 1 (Aşama 1) tamamlandı.");
+                }
+            }
+            else
+            {
+                int kalanSayi = PlayerInventory.Instance.currentFingerprints != null ? PlayerInventory.Instance.currentFingerprints.Count : 0;
+                Debug.LogWarning($"<color=yellow>[MasaYonetici]</color> Masadan ayrılındı fakat henüz {kalanSayi} adet parmak izi kalmış. Masa 1 henüz tamamlanmadı!");
+            }
         }
-
-        Debug.Log("<color=cyan>[MasaYonetici]</color> Tüm parmak izleri temizlendi! Masa kapatıldı ve oyuncu envanteri güncellendi.");
     }
 }

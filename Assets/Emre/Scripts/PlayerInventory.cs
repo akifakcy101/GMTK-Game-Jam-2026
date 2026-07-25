@@ -1,6 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+[System.Serializable]
+public class FingerprintData
+{
+    public Vector3 relativePosition;
+    public float zRotation;
+
+    public FingerprintData(Vector3 relPos, float rot)
+    {
+        relativePosition = relPos;
+        zRotation = rot;
+    }
+}
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -13,6 +27,10 @@ public class PlayerInventory : MonoBehaviour
     
     [Header("Mevcut Eşya Verisi")]
     public ItemData currentItem;
+
+    [Header("Masa 1 Verileri (Parmak İzleri)")]
+    public bool isFingerprintsGenerated = false;
+    public List<FingerprintData> currentFingerprints = new List<FingerprintData>();
 
     [Header("Arayüz Gösterimi (İsteğe Bağlı)")]
     public Image inventoryIconDisplay;
@@ -41,6 +59,10 @@ public class PlayerInventory : MonoBehaviour
         itemStage = 0; // Ham aşama
         currentItem = item;
 
+        // Masa 1 kalıcı verilerini sıfırla
+        isFingerprintsGenerated = false;
+        currentFingerprints.Clear();
+
         string nameStr = currentItem != null ? currentItem.itemName : "Bilinmeyen Eşya";
         Debug.Log($"<color=cyan>[Inventory]</color> Müşteriden eşya alındı: {nameStr} (Aşama 0)");
 
@@ -61,6 +83,8 @@ public class PlayerInventory : MonoBehaviour
         hasItem = false;
         itemStage = -1;
         currentItem = null;
+        isFingerprintsGenerated = false;
+        currentFingerprints.Clear();
         Debug.Log("<color=yellow>[Inventory]</color> Envanter temizlendi.");
         UpdateInventoryUI();
     }

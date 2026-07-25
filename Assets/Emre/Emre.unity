@@ -654,20 +654,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 220002181836527392, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 715622032649925688, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 311511116068134771, guid: c746da73ccdabeb47a4c93e66d3c734f, type: 3}
-    - target: {fileID: 1961697068842520222, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5361243517728945172, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 3811212585835115322, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
+      propertyPath: m_MaskAlphaCutoff
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5796460402671010958, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
@@ -710,41 +698,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6614802511935579454, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_Radius
-      value: 0.85571766
-      objectReference: {fileID: 0}
-    - target: {fileID: 6614802511935579454, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.004183769
-      objectReference: {fileID: 0}
-    - target: {fileID: 7375733045495243626, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7375733045495243626, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.8147323
-      objectReference: {fileID: 0}
-    - target: {fileID: 7375733045495243626, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0167029
-      objectReference: {fileID: 0}
-    - target: {fileID: 7375733045495243626, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8329955319212901618, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_Name
       value: Inceleme_Masasi_Sistemi
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329955319212901618, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9172635477280233751, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: testEsyaPrefab
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1034,10 +990,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
   spriteRenderer: {fileID: 1426981838}
-  upSprite: {fileID: 0}
-  downSprite: {fileID: 0}
-  leftSprite: {fileID: 0}
-  rightSprite: {fileID: 0}
+  upSprites:
+  - {fileID: -6470824193493768664, guid: 981e6ac91cb48b54ea5ec52b92959a6c, type: 3}
+  - {fileID: -381863091461680687, guid: 981e6ac91cb48b54ea5ec52b92959a6c, type: 3}
+  - {fileID: -8159807218827966484, guid: 981e6ac91cb48b54ea5ec52b92959a6c, type: 3}
+  - {fileID: 5599577019161589861, guid: 981e6ac91cb48b54ea5ec52b92959a6c, type: 3}
+  downSprites:
+  - {fileID: 7251405543957997647, guid: f7e9ae898fa0ebd4388d63aa7d8a83a0, type: 3}
+  - {fileID: -724299597526683832, guid: f7e9ae898fa0ebd4388d63aa7d8a83a0, type: 3}
+  - {fileID: -1909475346211783584, guid: f7e9ae898fa0ebd4388d63aa7d8a83a0, type: 3}
+  - {fileID: 3306132655920667061, guid: f7e9ae898fa0ebd4388d63aa7d8a83a0, type: 3}
+  leftSprites:
+  - {fileID: 6801183649002411665, guid: 77a94cd4553951c45b97af6a479de5f0, type: 3}
+  - {fileID: 8907231465920657290, guid: 77a94cd4553951c45b97af6a479de5f0, type: 3}
+  - {fileID: 7395775236903140548, guid: 77a94cd4553951c45b97af6a479de5f0, type: 3}
+  - {fileID: 1834922850235826129, guid: 77a94cd4553951c45b97af6a479de5f0, type: 3}
+  rightSprites:
+  - {fileID: -8809455273985295523, guid: 7641517f63955a741a9b99d6bb3d1c84, type: 3}
+  - {fileID: 9210340382521309906, guid: 7641517f63955a741a9b99d6bb3d1c84, type: 3}
+  - {fileID: 3918951663179015777, guid: 7641517f63955a741a9b99d6bb3d1c84, type: 3}
+  - {fileID: -812266431189991873, guid: 7641517f63955a741a9b99d6bb3d1c84, type: 3}
+  frameRate: 8
+  animateOnlyWhenMoving: 1
+  minMovementThreshold: 0.1
 --- !u!50 &1426981841
 Rigidbody2D:
   serializedVersion: 5
@@ -1126,6 +1101,8 @@ MonoBehaviour:
   hasItem: 0
   itemStage: -1
   currentItem: {fileID: 0}
+  isFingerprintsGenerated: 0
+  currentFingerprints: []
   inventoryIconDisplay: {fileID: 0}
   inventoryNameDisplay: {fileID: 0}
 --- !u!1001 &1612103607

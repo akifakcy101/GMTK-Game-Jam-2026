@@ -4,6 +4,13 @@ using UnityEngine.InputSystem;
 public class UVLightController : MonoBehaviour
 {
     private bool tutuluyorMu = false;
+    private Vector3 offset;
+    private float originalZ;
+
+    void Start()
+    {
+        originalZ = transform.position.z;
+    }
 
     void Update()
     {
@@ -21,19 +28,24 @@ public class UVLightController : MonoBehaviour
             if (temas != null && temas.gameObject == this.gameObject)
             {
                 tutuluyorMu = true;
+                // Tutulduğu noktanın obje merkezine olan farkını (offset) hesapla
+                offset = transform.position - mousePosDunya;
+                offset.z = 0f;
             }
         }
 
         // 2. Farenin SOL TUŞU BIRAKILDIĞINDA
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            tutuluyorMu = false; 
+            tutuluyorMu = false;
         }
 
-        // 3. IŞIK ELİMİZDEYKEN FAREYİ TAKİP ETSİN
+        // 3. IŞIK TUTULDUĞU NOKTADAN SÜRÜKLENSİN
         if (tutuluyorMu)
         {
-            transform.position = mousePosDunya;
+            Vector3 targetPos = mousePosDunya + offset;
+            targetPos.z = originalZ;
+            transform.position = targetPos;
         }
     }
 }

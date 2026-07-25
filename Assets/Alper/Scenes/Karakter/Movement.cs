@@ -6,17 +6,37 @@ public class Movement : MonoBehaviour
     [Header("Speed Settings")]
     public float speed = 5f;
 
-    [Header("Directional Sprites")]
+    [Header("Directional Animations (4'er frame)")]
     [Tooltip("Eğer boş bırakılırsa objedeki SpriteRenderer otomatik bulunur.")]
     public SpriteRenderer spriteRenderer;
-    public Sprite upSprite;      // W (Yukarı)
-    public Sprite downSprite;    // S (Aşağı)
-    public Sprite leftSprite;    // A (Sol)
-    public Sprite rightSprite;   // D (Sağ)
+
+    [Tooltip("Yukarı hareket animasyonu frameleri (W)")]
+    public Sprite[] upSprites;
+    [Tooltip("Aşağı hareket animasyonu frameleri (S)")]
+    public Sprite[] downSprites;
+    [Tooltip("Sol hareket animasyonu frameleri (A)")]
+    public Sprite[] leftSprites;
+    [Tooltip("Sağ hareket animasyonu frameleri (D)")]
+    public Sprite[] rightSprites;
+
+    [Header("Animation Settings")]
+    [Tooltip("Animasyon hızı (Kare/saniye)")]
+    public float frameRate = 8f;
+    [Tooltip("Sadece hareket ederken mi animasyon oynatılsın?")]
+    public bool animateOnlyWhenMoving = true;
+    [Tooltip("Duvara takılma tespiti için minimum hareket hızı eşiği.")]
+    public float minMovementThreshold = 0.1f;
 
     private Rigidbody2D rb;
     private Vector2 movement;
-    private InputAction moveAction; 
+    private InputAction moveAction;
+
+    private int currentFrame;
+    private float animationTimer;
+    private Vector2 lastDirection = Vector2.down;
+
+    private Vector2 lastPosition;
+    private float currentSpeed;
 
     void Awake()
     {
@@ -45,45 +65,83 @@ public class Movement : MonoBehaviour
         moveAction.Disable();
     }
 
+    void Start()
+    {
+        lastPosition = rb.position;
+    }
+
     void Update()
     {
         movement = moveAction.ReadValue<Vector2>();    
-        UpdateSpriteDirection();
+        UpdateAnimation();
     }
 
-    private void UpdateSpriteDirection()
+    private void UpdateAnimation()
     {
         if (spriteRenderer == null) return;
 
-        // Dikey hareket baskınsa (Yukarı/Aşağı)
-        if (Mathf.Abs(movement.y) > Mathf.Abs(movement.x))
+        bool hasInput = movement.sqrMagnitude > 0.01f;
+
+        // Tuşa basılıyor mu VE karakter fiziksel olarak gerçekten hareket ediyor mu?
+        bool isMoving = hasInput && (currentSpeed >= minMovementThreshold);
+
+        // Tuş girdisi varsa bakılan yönü güncelle
+        if (hasInput)
         {
-            if (movement.y > 0 && upSprite != null)
+            if (Mathf.Abs(movement.y) > Mathf.Abs(movement.x))
             {
-                spriteRenderer.sprite = upSprite;
+                lastDirection = movement.y > 0 ? Vector2.up : Vector2.down;
             }
-            else if (movement.y < 0 && downSprite != null)
+            else
             {
-                spriteRenderer.sprite = downSprite;
+                lastDirection = movement.x > 0 ? Vector2.right : Vector2.left;
             }
         }
-        // Yatay hareket baskınsa (Sağ/Sol)
-        else if (Mathf.Abs(movement.x) > 0)
+
+        // Mevcut yöne uygun Sprite dizisini al
+        Sprite[] currentArray = GetSpriteArrayForDirection(lastDirection);
+
+        if (currentArray == null || currentArray.Length == 0) return;
+
+        if (isMoving || !animateOnlyWhenMoving)
         {
-            if (movement.x > 0 && rightSprite != null)
+            animationTimer += Time.deltaTime;
+            if (animationTimer >= 1f / frameRate)
             {
-                spriteRenderer.sprite = rightSprite;
-            }
-            else if (movement.x < 0 && leftSprite != null)
-            {
-                spriteRenderer.sprite = leftSprite;
+                animationTimer = 0f;
+                currentFrame = (currentFrame + 1) % currentArray.Length;
             }
         }
+        else
+        {
+            // Dururken veya duvara takılınca ilk karede (Idle) kal
+            currentFrame = 0;
+            animationTimer = 0f;
+        }
+
+        // SpriteRenderer'ı güncelle
+        if (currentFrame < currentArray.Length && currentArray[currentFrame] != null)
+        {
+            spriteRenderer.sprite = currentArray[currentFrame];
+        }
+    }
+
+    private Sprite[] GetSpriteArrayForDirection(Vector2 dir)
+    {
+        if (dir == Vector2.up) return upSprites;
+        if (dir == Vector2.down) return downSprites;
+        if (dir == Vector2.left) return leftSprites;
+        if (dir == Vector2.right) return rightSprites;
+        return downSprites;
     }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement.normalized * speed * Time.fixedDeltaTime);
+
+        // Karakterin fiziksel yer değiştirmesinden gerçek hızı hesapla
+        currentSpeed = (rb.position - lastPosition).magnitude / Time.fixedDeltaTime;
+        lastPosition = rb.position;
     }
 }
 

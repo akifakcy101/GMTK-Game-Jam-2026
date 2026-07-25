@@ -10,6 +10,8 @@ public class InteractableDesk : MonoBehaviour
     [Header("Masa & Mekanik Bağlantısı")]
     [Tooltip("Bu masaya geçildiğinde açılacak Mekanik/UI Objesi")]
     public GameObject deskMechanicUI;
+    [Tooltip("Alper'in İnceleme Masası scripti (MasaYonetici) eğer sahnede bu masadaysa buraya sürükleyin")]
+    public MasaYonetici masaYonetici;
 
     [Header("Kamera & Görünüm Ayarları")]
     [Tooltip("Masaya geçildiğinde kameranın odaklanacağı konum (Boş bırakılırsa kamera hareket etmez)")]
@@ -40,6 +42,10 @@ public class InteractableDesk : MonoBehaviour
 
         if (deskMechanicUI != null)
             deskMechanicUI.SetActive(false);
+
+        // MasaYonetici bu obje üzerindeyse ve bağlanmadıysa otomatik bul
+        if (masaYonetici == null)
+            masaYonetici = GetComponent<MasaYonetici>();
     }
 
     private void Update()
@@ -92,6 +98,12 @@ public class InteractableDesk : MonoBehaviour
             Debug.Log($"<color=green>[InteractableDesk]</color> Masa {requiredItemStage + 1} açıldı: {deskMechanicUI.name}");
         }
 
+        // Eğer Alper'in MasaYonetici mekaniği bağlıysa onu tetikle ve eşyayı doğur!
+        if (masaYonetici != null)
+        {
+            masaYonetici.MasayiAc();
+        }
+
         // Kamerayı masanın konumuna odakla
         if (mainCamera != null && deskCameraPosition != null)
         {
@@ -124,6 +136,11 @@ public class InteractableDesk : MonoBehaviour
             Debug.Log($"<color=yellow>[InteractableDesk]</color> Masa {requiredItemStage + 1} kapatıldı.");
         }
 
+        if (masaYonetici != null)
+        {
+            masaYonetici.MasayiKapat();
+        }
+
         // Kamerayı eski yerine getir
         if (mainCamera != null && deskCameraPosition != null)
         {
@@ -137,8 +154,8 @@ public class InteractableDesk : MonoBehaviour
             if (sr != null) sr.enabled = true;
         }
 
-        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet
-        if (autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
+        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet (MasaYonetici bağlı değilse)
+        if (masaYonetici == null && autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
         {
             PlayerInventory.Instance.AdvanceItemStage();
         }

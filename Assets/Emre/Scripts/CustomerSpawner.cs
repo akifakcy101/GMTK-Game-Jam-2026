@@ -7,6 +7,10 @@ public class CustomerSpawner : MonoBehaviour
     [Tooltip("Doğurulacak farklı müşteri görsel/Prefab türleri (Rastgele seçilir)")]
     public GameObject[] customerPrefabs;
 
+    [Header("Müşteri Eşyaları")]
+    [Tooltip("Müşterilerin getirebileceği farklı eşya verileri (ScriptableObject)")]
+    public ItemData[] availableItems;
+
     [Header("Noktalar")]
     [Tooltip("Müşterinin ilk doğacağı nokta")]
     public Transform spawnPoint;
@@ -30,7 +34,7 @@ public class CustomerSpawner : MonoBehaviour
 
     private void Start()
     {
-        spawnTimer = spawnInterval; // Başlar başlamaz ilk müşteriyi doğursun
+        spawnTimer = spawnInterval;
     }
 
     private void Update()
@@ -69,9 +73,9 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        // Rastgele bir müşteri türü seç
-        int randomIndex = Random.Range(0, customerPrefabs.Length);
-        GameObject newCustomerObj = Instantiate(customerPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
+        // Rastgele müşteri ve rastgele eşya seç
+        int randomCustomerIndex = Random.Range(0, customerPrefabs.Length);
+        GameObject newCustomerObj = Instantiate(customerPrefabs[randomCustomerIndex], spawnPoint.position, Quaternion.identity);
 
         CustomerController customer = newCustomerObj.GetComponent<CustomerController>();
         if (customer == null)
@@ -79,17 +83,23 @@ public class CustomerSpawner : MonoBehaviour
             customer = newCustomerObj.AddComponent<CustomerController>();
         }
 
+        ItemData randomItem = null;
+        if (availableItems != null && availableItems.Length > 0)
+        {
+            int randomItemIndex = Random.Range(0, availableItems.Length);
+            randomItem = availableItems[randomItemIndex];
+        }
+
         // Sıradaki yerini hesapla
         int queueIndex = customerQueue.Count;
         Vector3 targetPos = GetQueuePosition(queueIndex);
 
-        customer.Setup(targetPos, exitPoint.position);
+        customer.Setup(targetPos, exitPoint.position, randomItem);
         customerQueue.Add(customer);
 
-        Debug.Log($"<color=green>[CustomerSpawner]</color> Müşteri doğuruldu. Sıradaki yeri: {queueIndex + 1}");
+        Debug.Log($"<color=green>[CustomerSpawner]</color> Müşteri doğuruldu. Eşya: {(randomItem != null ? randomItem.itemName : "Eşya Yok")}");
     }
 
-    // En öndeki müşterinin işi bittiğinde çağrılır (Öndekini gönderir ve arkadakileri 1 adım öne kaydırır)
     [ContextMenu("En Öndeki Müşteriyi Gönder")]
     public void DismissCurrentCustomer()
     {
@@ -99,7 +109,6 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        // En öndeki müşteriyi al ve gönder
         CustomerController frontCustomer = customerQueue[0];
         customerQueue.RemoveAt(0);
         
@@ -108,7 +117,6 @@ public class CustomerSpawner : MonoBehaviour
             frontCustomer.CompleteAndLeave();
         }
 
-        // Geride kalan tüm müşterileri 1 adım öne kaydır
         UpdateQueuePositions();
     }
 
@@ -129,7 +137,6 @@ public class CustomerSpawner : MonoBehaviour
         return counterPoint.position + (queueOffset * index);
     }
 
-    // İleride en öndeki müşteriyi almak için (Sipariş kontrolü vb.)
     public CustomerController GetFrontCustomer()
     {
         return customerQueue.Count > 0 ? customerQueue[0] : null;

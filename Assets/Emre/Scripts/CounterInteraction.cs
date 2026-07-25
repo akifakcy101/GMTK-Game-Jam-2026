@@ -51,11 +51,13 @@ public class CounterInteraction : MonoBehaviour
 
         if (!inv.hasItem)
         {
-            promptText.text = "E - Sipariş Al";
+            string itemStr = frontCustomer.assignedItem != null ? frontCustomer.assignedItem.itemName : "Eşya";
+            promptText.text = $"E - Siparişi Al ({itemStr})";
         }
         else if (inv.itemStage < 3)
         {
-            promptText.text = $"Eşyayı Tamamla! (Aşama: {inv.itemStage}/3)";
+            string itemStr = inv.currentItem != null ? inv.currentItem.itemName : "Eşyayı";
+            promptText.text = $"{itemStr} Tamamla! (Aşama: {inv.itemStage}/3)";
         }
         else if (inv.itemStage == 3)
         {
@@ -69,7 +71,6 @@ public class CounterInteraction : MonoBehaviour
 
         CustomerController frontCustomer = customerSpawner.GetFrontCustomer();
 
-        // Tezgahta hazır bekleyen müşteri yoksa işlem yapma
         if (frontCustomer == null || frontCustomer.currentState != CustomerController.CustomerState.WaitingInQueue)
         {
             Debug.LogWarning("<color=yellow>[Counter]</color> Tezgahta bekleyen müşteri yok!");
@@ -86,7 +87,8 @@ public class CounterInteraction : MonoBehaviour
         // Durum 1: Oyuncunun elinde eşya yoksa -> Müşteriden eşyayı al
         if (!inv.hasItem)
         {
-            inv.ReceiveItemFromCustomer("Ham Müşteri Eşyası");
+            ItemData customerItem = frontCustomer.GiveItemToPlayer();
+            inv.ReceiveItemFromCustomer(customerItem);
             Debug.Log("<color=green>[Counter]</color> Müşteriden sipariş alındı! Şimdi Masa 1'e git.");
         }
         // Durum 2: Oyuncu tüm masalardan geçmiş ve eşyayı tamamlamışsa -> Teslim et

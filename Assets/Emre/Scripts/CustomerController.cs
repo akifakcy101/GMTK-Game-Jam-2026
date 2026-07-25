@@ -4,8 +4,8 @@ public class CustomerController : MonoBehaviour
 {
     public enum CustomerState
     {
-        WalkingToCounter,
-        AtCounter,
+        WalkingToPosition,
+        WaitingInQueue,
         WalkingToExit
     }
 
@@ -13,38 +13,44 @@ public class CustomerController : MonoBehaviour
     public float moveSpeed = 3f;
 
     [Header("Durum")]
-    public CustomerState currentState = CustomerState.WalkingToCounter;
+    public CustomerState currentState = CustomerState.WalkingToPosition;
 
-    private Vector3 targetCounterPosition;
-    private Vector3 targetExitPosition;
+    private Vector3 currentTargetPosition;
+    private Vector3 exitPosition;
 
-    public void Setup(Vector3 counterPos, Vector3 exitPos)
+    public void Setup(Vector3 initialTargetPos, Vector3 exitPos)
     {
-        this.targetCounterPosition = counterPos;
-        this.targetExitPosition = exitPos;
-        currentState = CustomerState.WalkingToCounter;
+        this.currentTargetPosition = initialTargetPos;
+        this.exitPosition = exitPos;
+        currentState = CustomerState.WalkingToPosition;
+    }
+
+    // Sıra ilerlediğinde müşteriye yeni hedefini verir
+    public void UpdateTargetPosition(Vector3 newTargetPos)
+    {
+        this.currentTargetPosition = newTargetPos;
+        currentState = CustomerState.WalkingToPosition;
     }
 
     private void Update()
     {
         switch (currentState)
         {
-            case CustomerState.WalkingToCounter:
-                MoveTowardsPosition(targetCounterPosition);
-                if (Vector3.Distance(transform.position, targetCounterPosition) < 0.05f)
+            case CustomerState.WalkingToPosition:
+                MoveTowardsPosition(currentTargetPosition);
+                if (Vector3.Distance(transform.position, currentTargetPosition) < 0.05f)
                 {
-                    currentState = CustomerState.AtCounter;
-                    Debug.Log("<color=cyan>[Customer]</color> Müşteri tezgaha ulaştı ve bekliyor.");
+                    currentState = CustomerState.WaitingInQueue;
                 }
                 break;
 
-            case CustomerState.AtCounter:
-                // Müşteri tezgahta oyuncunun işlemini bekliyor
+            case CustomerState.WaitingInQueue:
+                // Sıradaki yerinde bekliyor
                 break;
 
             case CustomerState.WalkingToExit:
-                MoveTowardsPosition(targetExitPosition);
-                if (Vector3.Distance(transform.position, targetExitPosition) < 0.05f)
+                MoveTowardsPosition(exitPosition);
+                if (Vector3.Distance(transform.position, exitPosition) < 0.05f)
                 {
                     Debug.Log("<color=yellow>[Customer]</color> Müşteri çıkışa ulaştı ve yok edildi.");
                     Destroy(gameObject);

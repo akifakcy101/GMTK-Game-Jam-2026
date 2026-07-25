@@ -1,0 +1,123 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
+
+public class CounterInteraction : MonoBehaviour
+{
+    [Header("Bağlantılar")]
+    public CustomerSpawner customerSpawner;
+
+    [Header("Arayüz İpuçları")]
+    public GameObject interactPrompt;
+    public TextMeshProUGUI promptText;
+
+    private bool isPlayerInRange = false;
+
+    private void Start()
+    {
+        if (customerSpawner == null)
+            customerSpawner = FindObjectOfType<CustomerSpawner>();
+
+        if (interactPrompt != null)
+            interactPrompt.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!isPlayerInRange) return;
+
+        UpdatePromptText();
+
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            InteractWithCounter();
+        }
+    }
+
+    private void UpdatePromptText()
+    {
+        if (promptText == null) return;
+
+        CustomerController frontCustomer = customerSpawner != null ? customerSpawner.GetFrontCustomer() : null;
+
+        if (frontCustomer == null || frontCustomer.currentState != CustomerController.CustomerState.WaitingInQueue)
+        {
+            promptText.text = "Müşteri Bekleniyor...";
+            return;
+        }
+
+        PlayerInventory inv = PlayerInventory.Instance;
+        if (inv == null) return;
+
+        if (!inv.hasItem)
+        {
+            promptText.text = "E - Sipariş Al";
+        }
+        else if (inv.itemStage < 3)
+        {
+            promptText.text = $"Eşyayı Tamamla! (Aşama: {inv.itemStage}/3)";
+        }
+        else if (inv.itemStage == 3)
+        {
+            promptText.text = "E - Siparişi Teslim Et";
+        }
+    }
+
+    private void InteractWithCounter()
+    {
+        if (customerSpawner == null) return;
+
+        CustomerController frontCustomer = customerSpawner.GetFrontCustomer();
+
+        // Tezgahta hazır bekleyen müşteri yoksa işlem yapma
+        if (frontCustomer == null || frontCustomer.currentState != CustomerController.CustomerState.WaitingInQueue)
+        {
+            Debug.LogWarning("<color=yellow>[Counter]</color> Tezgahta bekleyen müşteri yok!");
+            return;
+        }
+
+        PlayerInventory inv = PlayerInventory.Instance;
+        if (inv == null)
+        {
+            Debug.LogError("<color=red>[Counter]</color> Sahnede PlayerInventory bulunamadı!");
+            return;
+        }
+
+        // Durum 1: Oyuncunun elinde eşya yoksa -> Müşteriden eşyayı al
+        if (!inv.hasItem)
+        {
+            inv.ReceiveItemFromCustomer("Ham Müşteri Eşyası");
+            Debug.Log("<color=green>[Counter]</color> Müşteriden sipariş alındı! Şimdi Masa 1'e git.");
+        }
+        // Durum 2: Oyuncu tüm masalardan geçmiş ve eşyayı tamamlamışsa -> Teslim et
+        else if (inv.itemStage == 3)
+        {
+            Debug.Log("<color=green>[Counter]</color> Sipariş başarıyla teslim edildi! Müşteri ayrılıyor.");
+            inv.ClearItem();
+            customerSpawner.DismissCurrentCustomer();
+        }
+        // Durum 3: Eşya henüz tamamlanmamışsa
+        else
+        {
+            Debug.LogWarning($"<color=yellow>[Counter]</color> Eşya henüz tamamlanmadı! Sıradaki Masa: Masa {inv.itemStage + 1}");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") || other.GetComponent<Movement>() != null)
+        {
+            isPlayerInRange = true;
+            if (interactPrompt != null) interactPrompt.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") || other.GetComponent<Movement>() != null)
+        {
+            isPlayerInRange = false;
+            if (interactPrompt != null) interactPrompt.SetActive(false);
+        }
+    }
+}

@@ -100,16 +100,25 @@ public class FausetSinkEraser : MonoBehaviour
     private void EraseAtTipPosition()
     {
         Vector2 tipWorldPosition = aktifFirca.fircaUcu.position;
-        RaycastHit2D hit = Physics2D.Raycast(tipWorldPosition, Vector2.zero);
 
-        if (hit.collider != null && hit.collider.gameObject == erasableSpriteRenderer.gameObject)
+        // YENİ: Raycast yerine RaycastAll kullanıyoruz. (Altındaki tüm objeleri delip geçer)
+        RaycastHit2D[] hits = Physics2D.RaycastAll(tipWorldPosition, Vector2.zero);
+
+        // Fırçanın değdiği tüm objeleri sırayla kontrol et
+        foreach (RaycastHit2D hit in hits)
         {
-            Vector2 localPoint = erasableSpriteRenderer.transform.InverseTransformPoint(hit.point);
+            // Eğer değdiğimiz obje bizim silinecek barkodumuzsa işlemi yap
+            if (hit.collider != null && hit.collider.gameObject == erasableSpriteRenderer.gameObject)
+            {
+                Vector2 localPoint = erasableSpriteRenderer.transform.InverseTransformPoint(hit.point);
 
-            int pixelX = Mathf.RoundToInt(localPoint.x * _pixelsPerUnit + _pivotPixels.x);
-            int pixelY = Mathf.RoundToInt(localPoint.y * _pixelsPerUnit + _pivotPixels.y);
+                int pixelX = Mathf.RoundToInt(localPoint.x * _pixelsPerUnit + _pivotPixels.x);
+                int pixelY = Mathf.RoundToInt(localPoint.y * _pixelsPerUnit + _pivotPixels.y);
 
-            ErasePixels(pixelX, pixelY);
+                ErasePixels(pixelX, pixelY);
+
+                break; // Barkodu bulup sildiğimiz için diğer objelere bakmaya gerek yok, döngüden çık.
+            }
         }
     }
 

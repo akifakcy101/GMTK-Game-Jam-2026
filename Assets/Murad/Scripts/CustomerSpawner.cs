@@ -25,12 +25,30 @@ public class CustomerSpawner : MonoBehaviour
     [Tooltip("Otomatik yeni müşteri doğması açık mı?")]
     public bool autoSpawn = true;
 
+    // ----------------------------------------------
+    // YENİ EKLENEN
+    [Header("Gün Ayarları")]
+    [Tooltip("Bu gün toplam kaç müşteri gelecek (süre aralıkları buna göre hesaplanır)")]
+    public int dayCustomerCount = 5;
+    // ----------------------------------------------
+
     private List<CustomerController> customerQueue = new List<CustomerController>();
+
+    // ----------------------------------------------
+    // YENİ EKLENEN
+    private Queue<float> pendingDurations = new Queue<float>();
+    // ----------------------------------------------
+
     private float spawnTimer = 0f;
 
     private void Start()
     {
         spawnTimer = spawnInterval; // Başlar başlamaz ilk müşteriyi doğursun
+
+        // ----------------------------------------------
+        // YENİ EKLENEN
+        PrepareDurations(dayCustomerCount);
+        // ----------------------------------------------
     }
 
     private void Update()
@@ -86,6 +104,18 @@ public class CustomerSpawner : MonoBehaviour
         customer.Setup(targetPos, exitPoint.position);
         customerQueue.Add(customer);
 
+        // ----------------------------------------------
+        // YENİ EKLENEN
+        // Bu müşteriye önceden hesaplanmış (karışık) süreyi ata
+        CustomerCountdown countdown = newCustomerObj.GetComponentInChildren<CustomerCountdown>();
+        if (countdown != null && pendingDurations.Count > 0)
+        {
+            countdown.SetDuration(pendingDurations.Dequeue());
+            countdown.onExpired.AddListener(() =>
+                Debug.LogWarning("<color=red>[CustomerSpawner]</color> Bir müşterinin süresi bitti! (Fail tetiklenecek)"));
+        }
+        // ----------------------------------------------
+
         Debug.Log($"<color=green>[CustomerSpawner]</color> Müşteri doğuruldu. Sıradaki yeri: {queueIndex + 1}");
     }
 
@@ -102,7 +132,7 @@ public class CustomerSpawner : MonoBehaviour
         // En öndeki müşteriyi al ve gönder
         CustomerController frontCustomer = customerQueue[0];
         customerQueue.RemoveAt(0);
-        
+
         if (frontCustomer != null)
         {
             frontCustomer.CompleteAndLeave();
@@ -134,4 +164,37 @@ public class CustomerSpawner : MonoBehaviour
     {
         return customerQueue.Count > 0 ? customerQueue[0] : null;
     }
+
+    // ----------------------------------------------
+    // YENİ EKLENEN
+    // Süreleri hesapla ve karıştır (customer_count önceden belliyse buna göre)
+    private void PrepareDurations(int count)
+    {
+        var durations = new List<float>();
+        for (int i = 1; i <= count; i++)
+        {
+            durations.Add(Random.Range(10f * i, 20f * i));
+        }
+
+        // Fisher-Yates shuffle
+        for (int i = durations.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (durations[i], durations[j]) = (durations[j], durations[i]);
+        }
+
+        pendingDurations = new Queue<float>(durations);
+    }
+
+    // İki müşterinin sıradaki yerini değiştirir (Shift mekaniği)
+    public void SwapQueuePositions(CustomerController a, CustomerController b)
+    {
+        int indexA = customerQueue.IndexOf(a);
+        int indexB = customerQueue.IndexOf(b);
+        if (indexA < 0 || indexB < 0 || indexA == indexB) return;
+
+        (customerQueue[indexA], customerQueue[indexB]) = (customerQueue[indexB], customerQueue[indexA]);
+        UpdateQueuePositions();
+    }
+    // ----------------------------------------------
 }

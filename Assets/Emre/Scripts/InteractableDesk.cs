@@ -10,6 +10,8 @@ public class InteractableDesk : MonoBehaviour
     [Header("Masa & Mekanik Bağlantısı")]
     [Tooltip("Bu masaya geçildiğinde açılacak Mekanik/UI Objesi")]
     public GameObject deskMechanicUI;
+    [Tooltip("Alper'in İnceleme Masası scripti (MasaYonetici) eğer sahnede bu masadaysa buraya sürükleyin")]
+    public MasaYonetici masaYonetici;
 
     [Header("Kamera & Görünüm Ayarları")]
     [Tooltip("Masaya geçildiğinde kameranın odaklanacağı konum (Boş bırakılırsa kamera hareket etmez)")]
@@ -22,8 +24,8 @@ public class InteractableDesk : MonoBehaviour
     public GameObject interactPrompt;
 
     [Header("Aşama İlerleme Ayarı")]
-    [Tooltip("Masa kapatıldığında eşya aşaması otomatik ilerlesin mi? (Placeholder / Test için)")]
-    public bool autoAdvanceOnClose = true;
+    [Tooltip("Masa kapatıldığında eşya aşaması otomatik ilerlesin mi? (Yalnızca mekanik scripti olmayan masalar için)")]
+    public bool autoAdvanceOnClose = false;
 
     private bool isPlayerInRange = false;
     private bool isInteracting = false;
@@ -40,6 +42,13 @@ public class InteractableDesk : MonoBehaviour
 
         if (deskMechanicUI != null)
             deskMechanicUI.SetActive(false);
+
+        // MasaYonetici bu obje üzerindeyse veya UI üzerindeyse otomatik bul
+        if (masaYonetici == null)
+            masaYonetici = GetComponent<MasaYonetici>();
+
+        if (masaYonetici == null && deskMechanicUI != null)
+            masaYonetici = deskMechanicUI.GetComponentInChildren<MasaYonetici>();
     }
 
     private void Update()
@@ -92,6 +101,12 @@ public class InteractableDesk : MonoBehaviour
             Debug.Log($"<color=green>[InteractableDesk]</color> Masa {requiredItemStage + 1} açıldı: {deskMechanicUI.name}");
         }
 
+        // Eğer Alper'in MasaYonetici mekaniği bağlıysa onu tetikle ve eşyayı doğur!
+        if (masaYonetici != null)
+        {
+            masaYonetici.MasayiAc();
+        }
+
         // Kamerayı masanın konumuna odakla
         if (mainCamera != null && deskCameraPosition != null)
         {
@@ -124,6 +139,11 @@ public class InteractableDesk : MonoBehaviour
             Debug.Log($"<color=yellow>[InteractableDesk]</color> Masa {requiredItemStage + 1} kapatıldı.");
         }
 
+        if (masaYonetici != null)
+        {
+            masaYonetici.MasayiKapat();
+        }
+
         // Kamerayı eski yerine getir
         if (mainCamera != null && deskCameraPosition != null)
         {
@@ -137,8 +157,8 @@ public class InteractableDesk : MonoBehaviour
             if (sr != null) sr.enabled = true;
         }
 
-        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet
-        if (autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
+        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet (MasaYonetici bağlı değilse)
+        if (masaYonetici == null && autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
         {
             PlayerInventory.Instance.AdvanceItemStage();
         }

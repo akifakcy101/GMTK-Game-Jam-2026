@@ -28,6 +28,7 @@ public class FausetSinkEraser : MonoBehaviour
     private float _pixelsPerUnit;
 
     private bool _isCompleted = false;
+    public bool IsCompleted => _isCompleted;
     private int _totalPixels;
     private float _checkTimer = 0f;
     private float _checkInterval = 0.2f;
@@ -196,8 +197,10 @@ public class FausetSinkEraser : MonoBehaviour
         }
     }
 
-    private void ClearRemainingPixels()
+    public void ClearRemainingPixels()
     {
+        if (_editableTexture == null || _texturePixels == null) return;
+
         for (int i = 0; i < _totalPixels; i++)
         {
             Color32 pixelColor = _texturePixels[i];
@@ -207,5 +210,8 @@ public class FausetSinkEraser : MonoBehaviour
 
         _editableTexture.SetPixels32(_texturePixels);
         _editableTexture.Apply();
+
+        _isCompleted = true;
+        suAnkiSilinmeYuzdesi = 100f;
     }
 }

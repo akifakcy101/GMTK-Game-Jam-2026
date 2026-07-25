@@ -543,6 +543,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8646817559069754799}
   - component: {fileID: 5752090788947170738}
+  - component: {fileID: 8891234567890123456}
+  - component: {fileID: 8891234567890123457}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -592,3 +594,43 @@ MonoBehaviour:
   - Harrow
   - Hammer
   silgiSistemi: {fileID: 0}
+--- !u!114 &8891234567890123456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727649339767036040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff56036cd68a654da365881c41bd359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FausetSinkEraser
+  aktifFirca: {fileID: 2556799024797100466}
+  erasableSpriteRenderer: {fileID: 0}
+  brushRadius: 30
+  brushHardness: 0.5
+  completionThreshold: 0.9
+  onEraseCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  suAnkiSilinmeYuzdesi: 0
+--- !u!114 &8891234567890123457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727649339767036040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f67890123456789abcdef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BarcodeManager
+  parmakIziUretici: {fileID: 0}
+  esyaCikmaNoktasi: {fileID: 4749530680293884662}
+  anaOyunKamerasi: {fileID: 0}
+  masaKamerasi: {fileID: 0}
+  testEsyaPrefab: {fileID: 3157477359873659060, guid: 65e0e1dce6746b94599dfdad49c31b20, type: 3}
+  silgiSistemi: {fileID: 8891234567890123456}
+  yeniBarkodSticker: {fileID: 5831461799323419619}

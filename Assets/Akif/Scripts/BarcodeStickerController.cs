@@ -126,4 +126,21 @@ public class StickerController : MonoBehaviour
         // YENİ: Başarı çıktısını (sinyalini) oyunun diğer kısımlarına yolla
         onStickerAttached?.Invoke();
     }
+
+    public bool IsAttached => _yapistirildi;
+
+    public void ResetSticker(Transform parent, Vector3 localPos)
+    {
+        _yapistirildi = false;
+        _isHolding = false;
+        _yerineDonuyor = false;
+        _gecerliHedef = null;
+
+        if (parent != null) transform.SetParent(parent);
+        transform.localPosition = localPos;
+        _baslangicPozisyonu = transform.position;
+
+        if (stickerGorseli != null) stickerGorseli.color = normalRenk;
+        gameObject.SetActive(true);
+    }
 }

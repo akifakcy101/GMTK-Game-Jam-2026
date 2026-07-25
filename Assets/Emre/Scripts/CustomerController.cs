@@ -15,13 +15,17 @@ public class CustomerController : MonoBehaviour
     [Header("Durum")]
     public CustomerState currentState = CustomerState.WalkingToPosition;
 
+    [Header("Müşterinin Eşyası")]
+    public ItemData assignedItem;
+
     private Vector3 currentTargetPosition;
     private Vector3 exitPosition;
 
-    public void Setup(Vector3 initialTargetPos, Vector3 exitPos)
+    public void Setup(Vector3 initialTargetPos, Vector3 exitPos, ItemData item = null)
     {
         this.currentTargetPosition = initialTargetPos;
         this.exitPosition = exitPos;
+        this.assignedItem = item;
         currentState = CustomerState.WalkingToPosition;
     }
 
@@ -62,6 +66,13 @@ public class CustomerController : MonoBehaviour
     private void MoveTowardsPosition(Vector3 destination)
     {
         transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+    }
+
+    public ItemData GiveItemToPlayer()
+    {
+        ItemData itemToGive = assignedItem;
+        Debug.Log($"<color=cyan>[Customer]</color> Müşteri eşyasını oyuncuya verdi: {(itemToGive != null ? itemToGive.itemName : "Bilinmeyen Eşya")}");
+        return itemToGive;
     }
 
     // Müşteriyle iş bittiğinde çağrılacak fonksiyon

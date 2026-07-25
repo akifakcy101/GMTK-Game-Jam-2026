@@ -1,61 +1,59 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CustomerSpawner : MonoBehaviour
 {
     [Header("Müşteri Prefab'ları")]
-    [Tooltip("Doğurulacak müşteri Prefab'ları")]
+    [Tooltip("Doğurulacak farklı müşteri görsel/Prefab türleri (Rastgele seçilir)")]
     public GameObject[] customerPrefabs;
 
     [Header("Noktalar")]
     [Tooltip("Müşterinin ilk doğacağı nokta")]
     public Transform spawnPoint;
-    [Tooltip("Müşterinin gelip duracağı tezgah/ön nokta")]
+    [Tooltip("Sıranın en başı (Tezgah/Ön nokta)")]
     public Transform counterPoint;
     [Tooltip("İş bitince müşterinin yürüyüp yok olacağı çıkış noktası")]
     public Transform exitPoint;
 
-    [Header("Doğma Ayarları")]
-    [Tooltip("Önceki müşteri gittikten kaç saniye sonra yeni müşteri gelsin?")]
-    public float spawnDelay = 2f;
-    [Tooltip("Otomatik yeni müşteri doğsun mu?")]
+    [Header("Sıra Ayarları")]
+    [Tooltip("Her bir müşterinin arkasında duracağı mesafe ve yön (Örn: X=0, Y=-1.5)")]
+    public Vector3 queueOffset = new Vector3(0, -1.5f, 0);
+    [Tooltip("Sırada maksimum kaç müşteri birikebilir?")]
+    public int maxQueueSize = 5;
+    [Tooltip("Kaç saniyede bir yeni müşteri doğsun?")]
+    public float spawnInterval = 4f;
+    [Tooltip("Otomatik yeni müşteri doğması açık mı?")]
     public bool autoSpawn = true;
 
-    private CustomerController currentCustomer;
-    private bool isWaitingForNextSpawn = false;
+    private List<CustomerController> customerQueue = new List<CustomerController>();
+    private float spawnTimer = 0f;
 
     private void Start()
     {
-        // Oyuna başlarken ilk müşteriyi doğur
-        if (autoSpawn)
-        {
-            SpawnCustomer();
-        }
+        spawnTimer = spawnInterval; // Başlar başlamaz ilk müşteriyi doğursun
     }
 
     private void Update()
     {
-        // Eğer tezgahta müşteri varsa ve yok edildiyse / gittiyse yenisini doğurmayı planla
-        if (autoSpawn && currentCustomer == null && !isWaitingForNextSpawn)
-        {
-            StartCoroutine(SpawnDelayRoutine());
-        }
-    }
+        if (!autoSpawn) return;
 
-    private System.Collections.IEnumerator SpawnDelayRoutine()
-    {
-        isWaitingForNextSpawn = true;
-        yield return new WaitForSeconds(spawnDelay);
-        SpawnCustomer();
-        isWaitingForNextSpawn = false;
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnInterval)
+        {
+            spawnTimer = 0f;
+            if (customerQueue.Count < maxQueueSize)
+            {
+                SpawnCustomer();
+            }
+        }
     }
 
     [ContextMenu("Müşteri Doğur")]
     public void SpawnCustomer()
     {
-        // Halihazırda tezgahta bekleyen müşteri varsa yeni doğurma
-        if (currentCustomer != null)
+        if (customerQueue.Count >= maxQueueSize)
         {
-            Debug.LogWarning("<color=yellow>[CustomerSpawner]</color> Tezgahta zaten bir müşteri var!");
+            Debug.LogWarning("<color=yellow>[CustomerSpawner]</color> Sıra dolu! Yeni müşteri gelemiyor.");
             return;
         }
 
@@ -71,29 +69,69 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        // Rastgele bir müşteri seç
+        // Rastgele bir müşteri türü seç
         int randomIndex = Random.Range(0, customerPrefabs.Length);
         GameObject newCustomerObj = Instantiate(customerPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
 
-        currentCustomer = newCustomerObj.GetComponent<CustomerController>();
-        if (currentCustomer == null)
+        CustomerController customer = newCustomerObj.GetComponent<CustomerController>();
+        if (customer == null)
         {
-            currentCustomer = newCustomerObj.AddComponent<CustomerController>();
+            customer = newCustomerObj.AddComponent<CustomerController>();
         }
 
-        // Müşteriye hedeflerini ver
-        currentCustomer.Setup(counterPoint.position, exitPoint.position);
-        Debug.Log("<color=green>[CustomerSpawner]</color> Yeni müşteri doğruldu!");
+        // Sıradaki yerini hesapla
+        int queueIndex = customerQueue.Count;
+        Vector3 targetPos = GetQueuePosition(queueIndex);
+
+        customer.Setup(targetPos, exitPoint.position);
+        customerQueue.Add(customer);
+
+        Debug.Log($"<color=green>[CustomerSpawner]</color> Müşteri doğuruldu. Sıradaki yeri: {queueIndex + 1}");
     }
 
-    // Müşterinin işi bittiğinde çağrılacak fonksiyon (Müşteriyi gönderir)
-    [ContextMenu("Müşteriyi Gönder")]
+    // En öndeki müşterinin işi bittiğinde çağrılır (Öndekini gönderir ve arkadakileri 1 adım öne kaydırır)
+    [ContextMenu("En Öndeki Müşteriyi Gönder")]
     public void DismissCurrentCustomer()
     {
-        if (currentCustomer != null)
+        if (customerQueue.Count == 0)
         {
-            currentCustomer.CompleteAndLeave();
-            currentCustomer = null;
+            Debug.LogWarning("<color=yellow>[CustomerSpawner]</color> Sıra zaten boş!");
+            return;
         }
+
+        // En öndeki müşteriyi al ve gönder
+        CustomerController frontCustomer = customerQueue[0];
+        customerQueue.RemoveAt(0);
+        
+        if (frontCustomer != null)
+        {
+            frontCustomer.CompleteAndLeave();
+        }
+
+        // Geride kalan tüm müşterileri 1 adım öne kaydır
+        UpdateQueuePositions();
+    }
+
+    private void UpdateQueuePositions()
+    {
+        for (int i = 0; i < customerQueue.Count; i++)
+        {
+            if (customerQueue[i] != null)
+            {
+                Vector3 newPos = GetQueuePosition(i);
+                customerQueue[i].UpdateTargetPosition(newPos);
+            }
+        }
+    }
+
+    private Vector3 GetQueuePosition(int index)
+    {
+        return counterPoint.position + (queueOffset * index);
+    }
+
+    // İleride en öndeki müşteriyi almak için (Sipariş kontrolü vb.)
+    public CustomerController GetFrontCustomer()
+    {
+        return customerQueue.Count > 0 ? customerQueue[0] : null;
     }
 }

@@ -14,13 +14,13 @@ public class MasaYonetici : MonoBehaviour
     [Tooltip("Envanter boşsa veya Prefab bulunamazsa test amaçlı doğurulacak varsayılan eşya Prefab'ı")]
     public GameObject testEsyaPrefab;
 
-    private GameObject masadakiMevcutEsya;
-    private bool masaAcikMi = false;
+    protected GameObject masadakiMevcutEsya;
+    protected bool masaAcikMi = false;
     private bool izlerBasildiMi = false;
 
     // 1. ANA OYUNDAN (Karakterden / Trigger'dan / Inspector'dan) ÇAĞIRILACAK OLAN AÇMA FONKSİYONU
     [ContextMenu("Test Masasını Aç")]
-    public void MasayiAc()
+    public virtual void MasayiAc()
     {
         if (masaAcikMi) return;
 
@@ -60,7 +60,7 @@ public class MasaYonetici : MonoBehaviour
         }
     }
 
-    private GameObject CreateItemObjectOnDesk(Vector3 spawnPos)
+    protected virtual GameObject CreateItemObjectOnDesk(Vector3 spawnPos)
     {
         // 1. Önce oyuncunun envanterindeki eşyaya (ItemData) bak
         if (PlayerInventory.Instance != null && PlayerInventory.Instance.hasItem && PlayerInventory.Instance.currentItem != null)
@@ -105,7 +105,7 @@ public class MasaYonetici : MonoBehaviour
     }
 
     // 3. İŞ BİTİNCE VEYA MASADAN AYRILINCA ÇAĞRILAN KAPATMA FONKSİYONU
-    public void MasayiKapat()
+    public virtual void MasayiKapat()
     {
         if (!masaAcikMi) return;
 

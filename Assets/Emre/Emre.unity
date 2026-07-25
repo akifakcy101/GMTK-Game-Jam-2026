@@ -419,6 +419,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1df0f8916b7df074a96f9ffc76ee5224, type: 3}
+--- !u!1 &607810154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7371235992706917929, guid: 1df0f8916b7df074a96f9ffc76ee5224, type: 3}
+  m_PrefabInstance: {fileID: 607810153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &847731957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7891234567890123457, guid: 1df0f8916b7df074a96f9ffc76ee5224, type: 3}
+  m_PrefabInstance: {fileID: 607810153}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f67890123456789abcdef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BarcodeManager
 --- !u!1 &960640998
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,12 +505,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableDesk
   requiredItemStage: 1
-  deskMechanicUI: {fileID: 560115006}
-  masaYonetici: {fileID: 0}
+  deskMechanicUI: {fileID: 607810154}
+  masaYonetici: {fileID: 847731957}
   deskCameraPosition: {fileID: 2106969638}
   hidePlayerWhileInteracting: 0
   interactPrompt: {fileID: 0}
-  autoAdvanceOnClose: 1
+  autoAdvanceOnClose: 0
 --- !u!61 &960641001
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -654,9 +670,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3811212585835115322, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
-      propertyPath: m_MaskAlphaCutoff
-      value: 0
+    - target: {fileID: 4356968462404022624, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356968462404022624, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.7
       objectReference: {fileID: 0}
     - target: {fileID: 5796460402671010958, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_LocalPosition.x

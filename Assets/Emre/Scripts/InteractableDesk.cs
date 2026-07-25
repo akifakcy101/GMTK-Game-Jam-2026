@@ -43,9 +43,12 @@ public class InteractableDesk : MonoBehaviour
         if (deskMechanicUI != null)
             deskMechanicUI.SetActive(false);
 
-        // MasaYonetici bu obje üzerindeyse ve bağlanmadıysa otomatik bul
+        // MasaYonetici bu obje üzerindeyse veya UI üzerindeyse otomatik bul
         if (masaYonetici == null)
             masaYonetici = GetComponent<MasaYonetici>();
+
+        if (masaYonetici == null && deskMechanicUI != null)
+            masaYonetici = deskMechanicUI.GetComponentInChildren<MasaYonetici>();
     }
 
     private void Update()

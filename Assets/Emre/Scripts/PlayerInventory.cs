@@ -32,6 +32,10 @@ public class PlayerInventory : MonoBehaviour
     public bool isFingerprintsGenerated = false;
     public List<FingerprintData> currentFingerprints = new List<FingerprintData>();
 
+    [Header("Masa 2 Verileri (Barkod)")]
+    public bool isBarcodeErased = false;
+    public bool isNewBarcodeAttached = false;
+
     [Header("Arayüz Gösterimi (İsteğe Bağlı)")]
     public Image inventoryIconDisplay;
     public TextMeshProUGUI inventoryNameDisplay;
@@ -59,9 +63,11 @@ public class PlayerInventory : MonoBehaviour
         itemStage = 0; // Ham aşama
         currentItem = item;
 
-        // Masa 1 kalıcı verilerini sıfırla
+        // Masa 1 ve Masa 2 kalıcı verilerini sıfırla
         isFingerprintsGenerated = false;
         currentFingerprints.Clear();
+        isBarcodeErased = false;
+        isNewBarcodeAttached = false;
 
         string nameStr = currentItem != null ? currentItem.itemName : "Bilinmeyen Eşya";
         Debug.Log($"<color=cyan>[Inventory]</color> Müşteriden eşya alındı: {nameStr} (Aşama 0)");
@@ -85,6 +91,8 @@ public class PlayerInventory : MonoBehaviour
         currentItem = null;
         isFingerprintsGenerated = false;
         currentFingerprints.Clear();
+        isBarcodeErased = false;
+        isNewBarcodeAttached = false;
         Debug.Log("<color=yellow>[Inventory]</color> Envanter temizlendi.");
         UpdateInventoryUI();
     }

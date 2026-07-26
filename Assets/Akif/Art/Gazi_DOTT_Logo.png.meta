@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 4cfbf2e1cb5400542a845fec92215dca
+guid: 26c166dd29eab924fad28229a761bf07
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2009489718027611664
-    second: firca 1_0
+      213: 5458409380368790065
+    second: Gazi_DOTT_Logo_0
   - first:
-      213: -3640444855088033716
-    second: firca 1_1
+      213: -528106046095333496
+    second: Gazi_DOTT_Logo_1
+  - first:
+      213: 532090967127212001
+    second: Gazi_DOTT_Logo_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +54,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -75,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -101,7 +104,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -116,45 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: firca 1_0
+      name: Gazi_DOTT_Logo_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 41
-        width: 1450
-        height: 1317
+        x: 148
+        y: 151
+        width: 787
+        height: 826
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01ee5d6704423eb10800000000000000
-      internalID: 2009489718027611664
+      spriteID: 132ba8b596a20cb40800000000000000
+      internalID: 5458409380368790065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: firca 1_1
+      name: Gazi_DOTT_Logo_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 38
-        width: 271
-        height: 270
+        x: 183
+        y: 161
+        width: 333
+        height: 398
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c40541431ba8a7dc0800000000000000
-      internalID: -3640444855088033716
+      spriteID: 88760ce595acba8f0800000000000000
+      internalID: -528106046095333496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gazi_DOTT_Logo_2
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 163
+        width: 349
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1efbfcb5aed526700800000000000000
+      internalID: 532090967127212001
       vertices: []
       indices: 
       edges: []
@@ -163,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 853254678cd89414298761d6a45356dd
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      firca 1_0: 2009489718027611664
-      firca 1_1: -3640444855088033716
+      Gazi_DOTT_Logo_0: 5458409380368790065
+      Gazi_DOTT_Logo_1: -528106046095333496
+      Gazi_DOTT_Logo_2: 532090967127212001
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

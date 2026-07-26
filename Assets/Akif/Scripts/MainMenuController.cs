@@ -7,6 +7,8 @@ public class MainMenuController : MonoBehaviour
     [Header("UI Panelleri (Canvas Group Eklenmiş Olmalı)")]
     public CanvasGroup mainMenuPanel;
     public CanvasGroup creditsPanel;
+    public CanvasGroup howToPlayPanel1; // YENİ: İlk eğitim paneli
+    public CanvasGroup howToPlayPanel2; // YENİ: İkinci eğitim paneli
 
     [Header("Sahne Geçişi İçin Siyah Ekran")]
     public CanvasGroup transitionFadePanel;
@@ -25,17 +27,41 @@ public class MainMenuController : MonoBehaviour
             StartCoroutine(FadeRoutine(transitionFadePanel, 1, 0, true));
         }
 
-        // Ana menü açık, Credits kapalı olarak başla
+        // Ana menü açık başla
         mainMenuPanel.gameObject.SetActive(true);
         mainMenuPanel.alpha = 1;
 
-        creditsPanel.gameObject.SetActive(false);
-        creditsPanel.alpha = 0;
+        // Diğer tüm panelleri kapalı olarak ayarla
+        SetPanelInactive(creditsPanel);
+        SetPanelInactive(howToPlayPanel1);
+        SetPanelInactive(howToPlayPanel2);
     }
 
-    public void PlayGame()
+    // Kod tekrarını önlemek için panelleri kapatan yardımcı fonksiyon
+    private void SetPanelInactive(CanvasGroup panel)
     {
-        // Oyuna geçerken direkt sahne yüklemek yerine Coroutine başlatıyoruz
+        if (panel != null)
+        {
+            panel.gameObject.SetActive(false);
+            panel.alpha = 0;
+        }
+    }
+
+    // 1. Ana menüdeki "Başla" butonuna basıldığında (How To Play 1'i açar)
+    public void StartHowToPlaySequence()
+    {
+        StartCoroutine(SwitchPanelRoutine(mainMenuPanel, howToPlayPanel1));
+    }
+
+    // 2. Birinci paneldeki "İleri" butonuna basıldığında (How To Play 2'yi açar)
+    public void NextHowToPlayPanel()
+    {
+        StartCoroutine(SwitchPanelRoutine(howToPlayPanel1, howToPlayPanel2));
+    }
+
+    // 3. İkinci paneldeki "Oyuna Başla" butonuna basıldığında (Sahneyi yükler)
+    public void StartActualGame()
+    {
         StartCoroutine(LoadSceneRoutine());
     }
 
@@ -82,24 +108,28 @@ public class MainMenuController : MonoBehaviour
     {
         // Geçiş sırasında panele tıklanmasını engelle
         canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            // Mathf.Lerp, iki değer arasında zamana göre pürüzsüz geçiş sağlar
             canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
-
-            yield return null; // Bir sonraki frame'e (kareye) kadar bekle
+            yield return null;
         }
 
         canvasGroup.alpha = endAlpha;
 
-        // Geçiş bittiğinde paneli tekrar etkileşime aç (eğer kapanmayacaksa)
+        // Geçiş bittiğinde paneli tekrar etkileşime aç veya tamamen kapat
         if (!disableOnFinish)
         {
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            // Şeffaf olan panellerin arkadaki butonlara tıklamayı engellememesi için tamamen kapatıyoruz
+            canvasGroup.gameObject.SetActive(false);
         }
     }
 

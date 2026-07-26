@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 724bcf006ac5dcc448af3c46689c0dbd
+guid: dde133689f7747b46abc805e6a372dc3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5748781779591513359
-    second: rakun_back_view_1_0
+      213: -5585566080609384049
+    second: buton_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rakun_back_view_1_0
+      name: buton_1_0
       rect:
         serializedVersion: 2
-        x: 263
-        y: 124
-        width: 498
-        height: 670
+        x: 0
+        y: 0
+        width: 481
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f054ac7f196c7cf40800000000000000
-      internalID: 5748781779591513359
+      spriteID: f898ec74e351c72b0800000000000000
+      internalID: -5585566080609384049
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rakun_back_view_1_0: 5748781779591513359
+      buton_1_0: -5585566080609384049
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

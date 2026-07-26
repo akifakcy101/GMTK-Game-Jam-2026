@@ -24,11 +24,17 @@ public class CustomerController : MonoBehaviour
     [Tooltip("Müşterinin üzerinde taşıdığı eşyanın ikonu/görseli (Boş bırakılırsa otomatik oluşturulur)")]
     public SpriteRenderer itemDisplayRenderer;
 
+    [Header("Müşteri Görünümü")]
+    [Tooltip("Doğarken rastgele seçilecek yandan görünüm sprite'ları (NPC/side sprite'ları)")]
+    public Sprite[] possibleBodySprites;
+
     private Vector3 currentTargetPosition;
     private Vector3 exitPosition;
 
     private void Start()
     {
+        AssignRandomBodySprite();
+
         if (assignedItem == null)
         {
             TryAssignRandomItem();
@@ -37,6 +43,17 @@ public class CustomerController : MonoBehaviour
         {
             UpdateItemDisplay();
         }
+    }
+
+    private void AssignRandomBodySprite()
+    {
+        if (possibleBodySprites == null || possibleBodySprites.Length == 0) return;
+
+        SpriteRenderer bodyRenderer = GetComponent<SpriteRenderer>();
+        if (bodyRenderer == null) return;
+
+        bodyRenderer.sprite = possibleBodySprites[Random.Range(0, possibleBodySprites.Length)];
+        bodyRenderer.flipX = true; // Kaynak sprite'lar sağa bakıyor, sola çeviriyoruz
     }
 
     public void Setup(Vector3 initialTargetPos, Vector3 exitPos, ItemData item = null)
@@ -88,7 +105,8 @@ public class CustomerController : MonoBehaviour
             {
                 GameObject child = new GameObject("ItemDisplay");
                 child.transform.SetParent(transform);
-                child.transform.localPosition = new Vector3(0.35f, 0.35f, 0f);
+                // Root 2 kat küçüldüğü için (0.5 scale), mutlak boyutu korumak adına 2 ile çarpılmış değerler
+                child.transform.localPosition = new Vector3(0.7f, 0.7f, 0f);
                 child.transform.localScale = new Vector3(0.45f, 0.45f, 1f);
 
                 itemDisplayRenderer = child.AddComponent<SpriteRenderer>();

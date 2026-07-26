@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PackingGameManager : MonoBehaviour
 {
@@ -23,8 +22,9 @@ public class PackingGameManager : MonoBehaviour
     public Button getPackedGunButton;
     public Button trashBinButton;
 
-    [Header("Sahne Ayarları")]
-    public string nextSceneName;
+    [Header("Masa Bağlantısı")]
+    [Tooltip("Bu paketleme masasının bağlı olduğu InteractableDesk (Get Packed Gun'da minigame'i tamamlatmak için)")]
+    public InteractableDesk parentDesk;
 
     private int selectedPackIndex = -1; 
     private bool isPackTableClosed = false;
@@ -37,7 +37,35 @@ public class PackingGameManager : MonoBehaviour
 
     public void OnPutGunPressed()
     {
+        UpdateGunVisual();
         gunObject.SetActive(true);
+    }
+
+    // Müşterinin gerçekte sipariş ettiği eşyayı (PlayerInventory.currentItem) gösterir
+    private void UpdateGunVisual()
+    {
+        Image gunImage = gunObject.GetComponent<Image>();
+        if (gunImage == null) return;
+
+        ItemData item = PlayerInventory.Instance != null ? PlayerInventory.Instance.currentItem : null;
+        Sprite itemSprite = GetItemSprite(item);
+        if (itemSprite != null)
+        {
+            gunImage.sprite = itemSprite;
+        }
+    }
+
+    // itemIcon boşsa itemPrefab'ın kendi SpriteRenderer'ındaki görsele düşer
+    private Sprite GetItemSprite(ItemData item)
+    {
+        if (item == null) return null;
+        if (item.itemIcon != null) return item.itemIcon;
+        if (item.itemPrefab != null)
+        {
+            SpriteRenderer sr = item.itemPrefab.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) return sr.sprite;
+        }
+        return null;
     }
 
     public void OnPackSelected(int packIndex)
@@ -90,7 +118,12 @@ public class PackingGameManager : MonoBehaviour
 
     public void OnGetPackedGunPressed()
     {
-        SceneManager.LoadScene(nextSceneName);
+        ResetGame();
+
+        if (parentDesk != null)
+        {
+            parentDesk.CompleteDeskMinigame();
+        }
     }
 
     public void OnTrashBinPressed()

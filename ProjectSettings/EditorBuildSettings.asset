@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/Alper/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Akif/MainMenu.unity
+    path: Assets/Murad/MainMenu.unity
     guid: 90e67892d4e9a0545879d1bca318629d
-  - enabled: 1
-    path: Assets/Emre/Emre.unity
-    guid: 107b20229d2bc3740a4a040517bfcef3
   - enabled: 0
     path: Assets/Akif/AkifScene1.unity
     guid: 610d72804b18c464ca20e2c974411936
+  - enabled: 1
+    path: Assets/Emre/Game Scene.unity
+    guid: 107b20229d2bc3740a4a040517bfcef3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

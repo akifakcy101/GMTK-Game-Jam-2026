@@ -36,6 +36,10 @@ public class CustomerSpawner : MonoBehaviour
     public int dayCustomerCount = 5;
     // ----------------------------------------------
 
+    // Gün sistemi (DayManager) için event'ler
+    public event System.Action OnCustomerDismissed;
+    public event System.Action OnCustomerCountdownExpired;
+
     private List<CustomerController> customerQueue = new List<CustomerController>();
 
     // ----------------------------------------------
@@ -126,7 +130,10 @@ public class CustomerSpawner : MonoBehaviour
         {
             countdown.SetDuration(pendingDurations.Dequeue());
             countdown.onExpired.AddListener(() =>
-                Debug.LogWarning("<color=red>[CustomerSpawner]</color> Bir müşterinin süresi bitti! (Fail tetiklenecek)"));
+            {
+                Debug.LogWarning("<color=red>[CustomerSpawner]</color> Bir müşterinin süresi bitti!");
+                OnCustomerCountdownExpired?.Invoke();
+            });
         }
         // ----------------------------------------------
 
@@ -154,6 +161,23 @@ public class CustomerSpawner : MonoBehaviour
 
         // Geride kalan tüm müşterileri 1 adım öne kaydır
         UpdateQueuePositions();
+
+        OnCustomerDismissed?.Invoke();
+    }
+
+    // Günün tüm müşterilerini tek seferde (trickle olmadan) doğurur
+    public void SpawnAllForDay(int count)
+    {
+        dayCustomerCount = count;
+        maxQueueSize = count;
+        autoSpawn = false;
+
+        PrepareDurations(count);
+
+        for (int i = 0; i < count; i++)
+        {
+            SpawnCustomer();
+        }
     }
 
     private void UpdateQueuePositions()
@@ -187,7 +211,7 @@ public class CustomerSpawner : MonoBehaviour
         var durations = new List<float>();
         for (int i = 1; i <= count; i++)
         {
-            durations.Add(Random.Range(10f * i, 20f * i));
+            durations.Add(Random.Range(60f * i, 80f * i));
         }
 
         // Fisher-Yates shuffle

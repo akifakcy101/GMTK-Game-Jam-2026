@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cf9bfaca7f92d8409bb0764d22cd93c, type: 3}
-  m_Name: item_gun
+  m_Name: item_leek
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemID: 1
-  itemName: item_gun
-  itemIcon: {fileID: -6628414004274166170, guid: ed31aea0e0a3d7993ae16f27f3fb368a, type: 3}
-  itemPrefab: {fileID: 8962340766133109081, guid: 0f2745a948d307a41b657c5b805b7041, type: 3}
+  itemID: 3
+  itemName: item_leek
+  itemIcon: {fileID: 7332616297026234698, guid: aa4f64e6db592fa60a102e4984b4db1a, type: 3}
+  itemPrefab: {fileID: 2502826666956185161, guid: 12289530cb653d44fb0f02d19762484b, type: 3}

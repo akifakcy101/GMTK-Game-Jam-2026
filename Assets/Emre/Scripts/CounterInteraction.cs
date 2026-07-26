@@ -28,7 +28,8 @@ public class CounterInteraction : MonoBehaviour
 
         UpdatePromptText();
 
-        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null &&
+            (Keyboard.current.eKey.wasPressedThisFrame || Keyboard.current.rKey.wasPressedThisFrame))
         {
             InteractWithCounter();
         }
@@ -52,7 +53,7 @@ public class CounterInteraction : MonoBehaviour
         if (!inv.hasItem)
         {
             string itemStr = frontCustomer.assignedItem != null ? frontCustomer.assignedItem.itemName : "Eşya";
-            promptText.text = $"E - Siparişi Al ({itemStr})";
+            promptText.text = $"E/R - Siparişi Al ({itemStr})";
         }
         else if (inv.itemStage < 3)
         {
@@ -61,7 +62,7 @@ public class CounterInteraction : MonoBehaviour
         }
         else if (inv.itemStage == 3)
         {
-            promptText.text = "E - Siparişi Teslim Et";
+            promptText.text = "E/R - Siparişi Teslim Et";
         }
     }
 

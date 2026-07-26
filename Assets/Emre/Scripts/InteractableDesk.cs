@@ -55,8 +55,9 @@ public class InteractableDesk : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        // Karakter masanın yanındaysa ve E tuşuna basarsa
-        if (isPlayerInRange && Keyboard.current.eKey.wasPressedThisFrame)
+        // Karakter masanın yanındaysa ve E veya R tuşuna basarsa
+        if (isPlayerInRange &&
+            (Keyboard.current.eKey.wasPressedThisFrame || Keyboard.current.rKey.wasPressedThisFrame))
         {
             if (!isInteracting)
             {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d4ed9347f0c76448aa533d214e80073
+guid: 9acca84550e0bbb488b0da70e680ba20
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,12 +103,12 @@ TextureImporter:
       name: PENUP_20260726_050443_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 22
-        width: 358
-        height: 169
+        x: 19
+        y: 141
+        width: 485
+        height: 232
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 76fc0d18d39d673428c5fda3a600e2aa
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 

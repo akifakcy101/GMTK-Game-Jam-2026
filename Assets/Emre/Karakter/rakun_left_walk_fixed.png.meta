@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 9d4ed9347f0c76448aa533d214e80073
+guid: 0228b6adf2df33048a54a59031c86d23
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2475292486153505678
-    second: PENUP_20260726_050443_0
+      213: 4961541016753144728
+    second: rakun_left_walk_fixed_0
+  - first:
+      213: -4487738263617233816
+    second: rakun_left_walk_fixed_1
+  - first:
+      213: -3634486382431109469
+    second: rakun_left_walk_fixed_2
+  - first:
+      213: -8429562720655410308
+    second: rakun_left_walk_fixed_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PENUP_20260726_050443_0
+      name: rakun_left_walk_fixed_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 22
-        width: 358
-        height: 169
+        x: 357
+        y: 125
+        width: 323
+        height: 661
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27470a7399ef5add0800000000000000
-      internalID: -2475292486153505678
+      spriteID: 8930a12744fead440800000000000000
+      internalID: 4961541016753144728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_left_walk_fixed_1
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 122
+        width: 311
+        height: 670
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86c9a2883d958b1c0800000000000000
+      internalID: -4487738263617233816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_left_walk_fixed_2
+      rect:
+        serializedVersion: 2
+        x: 2395
+        y: 124
+        width: 323
+        height: 662
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aef23a34e5bf8dc0800000000000000
+      internalID: -3634486382431109469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_left_walk_fixed_3
+      rect:
+        serializedVersion: 2
+        x: 3420
+        y: 125
+        width: 311
+        height: 670
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7b75770e5d240b80800000000000000
+      internalID: -8429562720655410308
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 76fc0d18d39d673428c5fda3a600e2aa
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PENUP_20260726_050443_0: -2475292486153505678
+      rakun_left_walk_fixed_0: 4961541016753144728
+      rakun_left_walk_fixed_1: -4487738263617233816
+      rakun_left_walk_fixed_2: -3634486382431109469
+      rakun_left_walk_fixed_3: -8429562720655410308
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

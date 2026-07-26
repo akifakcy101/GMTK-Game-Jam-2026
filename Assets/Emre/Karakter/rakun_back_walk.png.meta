@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 9d4ed9347f0c76448aa533d214e80073
+guid: 21825a1000b230e48915515c1ec79307
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2475292486153505678
-    second: PENUP_20260726_050443_0
+      213: -3396322252069963011
+    second: rakun_back_walk_0
+  - first:
+      213: -2454426547538133393
+    second: rakun_back_walk_1
+  - first:
+      213: 4039989981232093483
+    second: rakun_back_walk_2
+  - first:
+      213: -7647999105559770664
+    second: rakun_back_walk_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PENUP_20260726_050443_0
+      name: rakun_back_walk_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 22
-        width: 358
-        height: 169
+        x: 263
+        y: 124
+        width: 498
+        height: 670
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27470a7399ef5add0800000000000000
-      internalID: -2475292486153505678
+      spriteID: dfa7d9ef7e6ddd0d0800000000000000
+      internalID: -3396322252069963011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_back_walk_1
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 122
+        width: 498
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6e73b22f0020fdd0800000000000000
+      internalID: -2454426547538133393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_back_walk_2
+      rect:
+        serializedVersion: 2
+        x: 2311
+        y: 124
+        width: 498
+        height: 670
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b29d97fab7de01830800000000000000
+      internalID: 4039989981232093483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_back_walk_3
+      rect:
+        serializedVersion: 2
+        x: 3335
+        y: 122
+        width: 498
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9ca969559dcd590800000000000000
+      internalID: -7647999105559770664
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 76fc0d18d39d673428c5fda3a600e2aa
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PENUP_20260726_050443_0: -2475292486153505678
+      rakun_back_walk_0: -3396322252069963011
+      rakun_back_walk_1: -2454426547538133393
+      rakun_back_walk_2: 4039989981232093483
+      rakun_back_walk_3: -7647999105559770664
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

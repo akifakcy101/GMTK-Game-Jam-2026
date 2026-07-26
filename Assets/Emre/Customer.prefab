@@ -217,12 +217,30 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d8020a7b48e7594cb502f60f39b13ab, type: 2}
   - {fileID: 11400000, guid: be6fe74c7c015bc4383b79ce409a870a, type: 2}
   - {fileID: 11400000, guid: 22aea5e6ee2e47b9b9896cb8f6684478, type: 2}
+  requestedPackIndex: 0
+  requestedStickerIndex: 0
+  maxPackTypes: 3
+  maxStickerTypes: 3
   itemDisplayRenderer: {fileID: 0}
+  headDisplayBackgroundSprite: {fileID: -362799798567134089, guid: 08968b1b0319dea4bb5e42a11f83193c, type: 3}
   possibleBodySprites:
   - {fileID: -912636208690435989, guid: 881fe25efadd5594f9b6697d02489807, type: 3}
   - {fileID: -1206549904644395001, guid: 2404183775a54924b8ee4f57e74899fd, type: 3}
   - {fileID: -1003827797940022031, guid: 79bb38b3dc258c25b8335684c1008df0, type: 3}
   - {fileID: 5721530587895395685, guid: 5c70904b847a344fca44a9112a09db28, type: 3}
+  packSprites: []
+  stickerSprites: []
+  bubbleBackgroundSprite: {fileID: -362799798567134089, guid: 08968b1b0319dea4bb5e42a11f83193c, type: 3}
+  bubbleOffset: {x: 1, y: 1.14, z: 0}
+  bubbleScale: {x: 1, y: 1, z: 1}
+  packIconOffset: {x: 0.35, y: 4, z: 0}
+  packIconScale: {x: 0.4, y: 0.4, z: 1}
+  packBgOffset: {x: 0, y: 0, z: 0}
+  packBgScale: {x: 1.2, y: 1.2, z: 1}
+  stickerIconOffset: {x: -2.2, y: 4, z: 0}
+  stickerIconScale: {x: 0.2, y: 0.2, z: 1}
+  stickerBgOffset: {x: 0, y: 0, z: 0}
+  stickerBgScale: {x: 2.55, y: 2.5, z: 1}
 --- !u!114 &3148346953298017020
 MonoBehaviour:
   m_ObjectHideFlags: 0

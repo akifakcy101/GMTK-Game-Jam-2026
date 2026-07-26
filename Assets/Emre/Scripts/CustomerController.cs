@@ -449,6 +449,12 @@ public class CustomerController : MonoBehaviour
     {
         if (currentState == CustomerState.WalkingToExit) return;
         
+        CustomerCountdown countdown = GetComponentInChildren<CustomerCountdown>();
+        if (countdown != null)
+        {
+            countdown.StopCountdown();
+        }
+
         if (requestBubbleObject != null)
         {
             requestBubbleObject.SetActive(false);

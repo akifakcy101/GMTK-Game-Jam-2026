@@ -221,7 +221,7 @@ public class CustomerSpawner : MonoBehaviour
         var durations = new List<float>();
         for (int i = 1; i <= count; i++)
         {
-            durations.Add(Random.Range(60f * i, 80f * i));
+            durations.Add(Random.Range(30f * i, 40f * i));
         }
 
         // Fisher-Yates shuffle

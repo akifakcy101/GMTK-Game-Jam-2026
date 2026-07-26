@@ -137,7 +137,57 @@ public class DayManager : MonoBehaviour
 
     private void ShowResultMenu(string title, string subtitle, bool showMainMenu, bool showContinue)
     {
-        if (resultMenuPanel != null) resultMenuPanel.SetActive(true);
+        if (resultMenuPanel != null)
+        {
+            resultMenuPanel.SetActive(true);
+
+            // Oyuncunun veya kameranın pozisyonunu bul
+            Vector3 targetPos = Vector3.zero;
+            Movement playerMov = FindObjectOfType<Movement>();
+            if (playerMov != null)
+            {
+                targetPos = playerMov.transform.position;
+            }
+            else if (PlayerInventory.Instance != null)
+            {
+                targetPos = PlayerInventory.Instance.transform.position;
+            }
+            else if (Camera.main != null)
+            {
+                targetPos = Camera.main.transform.position;
+            }
+
+            // 2D Görünürlük için Z koordinatını ayarla
+            if (Camera.main != null && Camera.main.orthographic)
+            {
+                targetPos.z = 0f;
+            }
+            else if (Camera.main != null)
+            {
+                targetPos = Camera.main.transform.position + Camera.main.transform.forward * 1.5f;
+            }
+
+            // Menüyü oyuncunun/kameranın konumuna taşı
+            resultMenuPanel.transform.position = targetPos;
+            if (Camera.main != null && !Camera.main.orthographic)
+            {
+                resultMenuPanel.transform.rotation = Camera.main.transform.rotation;
+            }
+
+            // Canvas bileşenini bul ve en öne (Sorting Order 999) getir
+            Canvas canvas = resultMenuPanel.GetComponent<Canvas>();
+            if (canvas == null) canvas = resultMenuPanel.GetComponentInChildren<Canvas>();
+            if (canvas == null) canvas = resultMenuPanel.GetComponentInParent<Canvas>();
+
+            if (canvas != null)
+            {
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 999;
+            }
+
+            resultMenuPanel.transform.SetAsLastSibling();
+        }
+
         if (resultTitleText != null) resultTitleText.text = title;
 
         if (resultSubtitleText != null)

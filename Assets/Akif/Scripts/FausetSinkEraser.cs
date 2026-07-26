@@ -58,7 +58,36 @@ public class FausetSinkEraser : MonoBehaviour
         int rectWidth = Mathf.FloorToInt(originalSprite.rect.width);
         int rectHeight = Mathf.FloorToInt(originalSprite.rect.height);
 
-        Color[] pixels = originalSprite.texture.GetPixels(rectX, rectY, rectWidth, rectHeight);
+        Color[] pixels;
+        if (originalSprite.texture.isReadable)
+        {
+            pixels = originalSprite.texture.GetPixels(rectX, rectY, rectWidth, rectHeight);
+        }
+        else
+        {
+            // Read/Write seçeneği kapalı görseller için RenderTexture üzerinden güvenli kopyalama
+            RenderTexture tmp = RenderTexture.GetTemporary(
+                originalSprite.texture.width,
+                originalSprite.texture.height,
+                0,
+                RenderTextureFormat.Default,
+                RenderTextureReadWrite.Linear);
+
+            Graphics.Blit(originalSprite.texture, tmp);
+
+            RenderTexture previous = RenderTexture.active;
+            RenderTexture.active = tmp;
+
+            Texture2D myTexture2D = new Texture2D(rectWidth, rectHeight, TextureFormat.RGBA32, false);
+            myTexture2D.ReadPixels(new Rect(rectX, rectY, rectWidth, rectHeight), 0, 0);
+            myTexture2D.Apply();
+
+            RenderTexture.active = previous;
+            RenderTexture.ReleaseTemporary(tmp);
+
+            pixels = myTexture2D.GetPixels();
+            Destroy(myTexture2D);
+        }
 
         _editableTexture = new Texture2D(rectWidth, rectHeight, TextureFormat.RGBA32, false);
         _editableTexture.filterMode = FilterMode.Bilinear;

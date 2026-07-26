@@ -20,6 +20,17 @@ public class CustomerController : MonoBehaviour
     [Tooltip("Eğer doğarken atanmadıysa kullanılabilecek varsayılan eşya havuzu")]
     public ItemData[] possibleItems;
 
+    [Header("Paketleme İpuçları / İstekleri")]
+    [Tooltip("Müşterinin paketleme için istediği kutu/paket türünün indeksi (0: Carton, 1: Container, 2: Foil)")]
+    public int requestedPackIndex = 0;
+    [Tooltip("Müşterinin paketleme için istediği sticker türünün indeksi (0, 1, 2)")]
+    public int requestedStickerIndex = 0;
+
+    [Tooltip("Toplam paket seçeneği sayısı")]
+    public int maxPackTypes = 3;
+    [Tooltip("Toplam sticker seçeneği sayısı")]
+    public int maxStickerTypes = 3;
+
     [Header("Görsel Gösterim")]
     [Tooltip("Müşterinin üzerinde taşıdığı eşyanın ikonu/görseli (Boş bırakılırsa otomatik oluşturulur)")]
     public SpriteRenderer itemDisplayRenderer;
@@ -30,6 +41,7 @@ public class CustomerController : MonoBehaviour
 
     private Vector3 currentTargetPosition;
     private Vector3 exitPosition;
+    private bool isSetupCalled = false;
 
     private void Start()
     {
@@ -42,6 +54,12 @@ public class CustomerController : MonoBehaviour
         else
         {
             UpdateItemDisplay();
+        }
+
+        if (!isSetupCalled)
+        {
+            requestedPackIndex = Random.Range(0, maxPackTypes);
+            requestedStickerIndex = Random.Range(0, maxStickerTypes);
         }
     }
 
@@ -56,8 +74,9 @@ public class CustomerController : MonoBehaviour
         bodyRenderer.flipX = true; // Kaynak sprite'lar sağa bakıyor, sola çeviriyoruz
     }
 
-    public void Setup(Vector3 initialTargetPos, Vector3 exitPos, ItemData item = null)
+    public void Setup(Vector3 initialTargetPos, Vector3 exitPos, ItemData item = null, int packIndex = -1, int stickerIndex = -1)
     {
+        isSetupCalled = true;
         this.currentTargetPosition = initialTargetPos;
         this.exitPosition = exitPos;
         if (item != null)
@@ -67,6 +86,24 @@ public class CustomerController : MonoBehaviour
         else if (this.assignedItem == null)
         {
             TryAssignRandomItem();
+        }
+
+        if (packIndex >= 0)
+        {
+            this.requestedPackIndex = packIndex;
+        }
+        else
+        {
+            this.requestedPackIndex = Random.Range(0, maxPackTypes);
+        }
+
+        if (stickerIndex >= 0)
+        {
+            this.requestedStickerIndex = stickerIndex;
+        }
+        else
+        {
+            this.requestedStickerIndex = Random.Range(0, maxStickerTypes);
         }
 
         UpdateItemDisplay();

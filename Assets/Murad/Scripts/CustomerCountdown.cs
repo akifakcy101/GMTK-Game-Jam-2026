@@ -22,6 +22,13 @@ public class CustomerCountdown : MonoBehaviour
         UpdateCountdownUI();
     }
 
+    public void ReduceTime(float seconds)
+    {
+        remainingTime = Mathf.Max(0f, remainingTime - seconds);
+        UpdateCountdownUI();
+        Debug.LogWarning($"<color=orange>[CustomerCountdown]</color> Müşteri süresi {seconds:F1}s kısaltıldı! Kalan: {remainingTime:F1}s");
+    }
+
     private void Update()
     {
         if (!isRunning) return;

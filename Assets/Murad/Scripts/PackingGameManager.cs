@@ -26,13 +26,20 @@ public class PackingGameManager : MonoBehaviour
     [Tooltip("Bu paketleme masasının bağlı olduğu InteractableDesk (Get Packed Gun'da minigame'i tamamlatmak için)")]
     public InteractableDesk parentDesk;
 
-    private int selectedPackIndex = -1; 
+    private int selectedPackIndex = -1;
+    private int selectedStickerIndex = -1;
     private bool isPackTableClosed = false;
     private bool isStickerPlaced = false;
 
     void Start()
     {
         ResetGame();
+    }
+
+    private void OnEnable()
+    {
+        ResetGame();
+        OnPutGunPressed();
     }
 
     public void OnPutGunPressed()
@@ -94,6 +101,8 @@ public class PackingGameManager : MonoBehaviour
         if (isStickerPlaced) return;          // sadece 1 sticker koyulabilir
         if (selectedPackIndex < 0) return;    // kontrol
 
+        selectedStickerIndex = stickerIndex;
+
         RectTransform targetTableRect = packTable.GetComponent<RectTransform>();
 
         StickerDragHandler dragHandler =
@@ -118,6 +127,13 @@ public class PackingGameManager : MonoBehaviour
 
     public void OnGetPackedGunPressed()
     {
+        if (PlayerInventory.Instance != null)
+        {
+            PlayerInventory.Instance.appliedPackIndex = selectedPackIndex;
+            PlayerInventory.Instance.appliedStickerIndex = selectedStickerIndex;
+            Debug.Log($"<color=cyan>[PackingGameManager]</color> Paketleme verisi kaydedildi -> Kutu: {selectedPackIndex}, Sticker: {selectedStickerIndex}");
+        }
+
         ResetGame();
 
         if (parentDesk != null)
@@ -146,6 +162,7 @@ public class PackingGameManager : MonoBehaviour
         getPackedGunButton.interactable = false;
 
         selectedPackIndex = -1;
+        selectedStickerIndex = -1;
         isPackTableClosed = false;
         isStickerPlaced = false;
     }

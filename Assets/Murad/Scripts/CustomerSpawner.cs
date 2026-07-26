@@ -7,6 +7,10 @@ public class CustomerSpawner : MonoBehaviour
     [Tooltip("Doğurulacak farklı müşteri görsel/Prefab türleri (Rastgele seçilir)")]
     public GameObject[] customerPrefabs;
 
+    [Header("Müşterinin Eşya Havuzu")]
+    [Tooltip("Müşterilerin doğarken rastgele alacağı eşyalar (ItemData)")]
+    public ItemData[] availableItems;
+
     [Header("Noktalar")]
     [Tooltip("Müşterinin ilk doğacağı nokta")]
     public Transform spawnPoint;
@@ -44,6 +48,7 @@ public class CustomerSpawner : MonoBehaviour
     private void Start()
     {
         spawnTimer = spawnInterval; // Başlar başlamaz ilk müşteriyi doğursun
+        EnsureAvailableItems();
 
         // ----------------------------------------------
         // YENİ EKLENEN
@@ -87,6 +92,8 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
+        EnsureAvailableItems();
+
         // Rastgele bir müşteri türü seç
         int randomIndex = Random.Range(0, customerPrefabs.Length);
         GameObject newCustomerObj = Instantiate(customerPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
@@ -101,7 +108,14 @@ public class CustomerSpawner : MonoBehaviour
         int queueIndex = customerQueue.Count;
         Vector3 targetPos = GetQueuePosition(queueIndex);
 
-        customer.Setup(targetPos, exitPoint.position);
+        // Rastgele bir eşya seç
+        ItemData randomItem = null;
+        if (availableItems != null && availableItems.Length > 0)
+        {
+            randomItem = availableItems[Random.Range(0, availableItems.Length)];
+        }
+
+        customer.Setup(targetPos, exitPoint.position, randomItem);
         customerQueue.Add(customer);
 
         // ----------------------------------------------
@@ -196,5 +210,51 @@ public class CustomerSpawner : MonoBehaviour
         (customerQueue[indexA], customerQueue[indexB]) = (customerQueue[indexB], customerQueue[indexA]);
         UpdateQueuePositions();
     }
-    // ----------------------------------------------
+
+    private void EnsureAvailableItems()
+    {
+        if (availableItems != null && availableItems.Length > 0)
+        {
+            List<ItemData> validList = new List<ItemData>();
+            foreach (var item in availableItems)
+            {
+                if (item != null && !validList.Contains(item))
+                    validList.Add(item);
+            }
+            if (validList.Count > 0)
+            {
+                availableItems = validList.ToArray();
+                return;
+            }
+        }
+
+        List<ItemData> loadedItems = new List<ItemData>();
+        ItemData[] resItems = Resources.LoadAll<ItemData>("");
+        if (resItems != null && resItems.Length > 0)
+        {
+            loadedItems.AddRange(resItems);
+        }
+
+#if UNITY_EDITOR
+        if (loadedItems.Count == 0)
+        {
+            string[] guids = UnityEditor.AssetDatabase.FindAssets("t:ItemData");
+            foreach (string guid in guids)
+            {
+                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
+                ItemData asset = UnityEditor.AssetDatabase.LoadAssetAtPath<ItemData>(path);
+                if (asset != null && !loadedItems.Contains(asset))
+                {
+                    loadedItems.Add(asset);
+                }
+            }
+        }
+#endif
+
+        if (loadedItems.Count > 0)
+        {
+            availableItems = loadedItems.ToArray();
+            Debug.Log($"<color=green>[CustomerSpawner]</color> {availableItems.Length} adet ItemData eşya havuzuna otomatik yüklendi.");
+        }
+    }
 }

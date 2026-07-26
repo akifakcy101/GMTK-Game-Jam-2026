@@ -406,14 +406,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BarcodeEraserWorkbench 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7371235992706917929, guid: 1df0f8916b7df074a96f9ffc76ee5224, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7981121636635159497, guid: 1df0f8916b7df074a96f9ffc76ee5224, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -672,7 +664,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4356968462404022624, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.41
+      value: 7.4
       objectReference: {fileID: 0}
     - target: {fileID: 4356968462404022624, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_LocalPosition.y
@@ -680,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5796460402671010958, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.31
+      value: -37.13
       objectReference: {fileID: 0}
     - target: {fileID: 5796460402671010958, guid: 4131f1e417728d14e9b0c1a0235e6162, type: 3}
       propertyPath: m_LocalPosition.y
@@ -798,9 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CustomerSpawner
   customerPrefabs:
   - {fileID: 4049752062512466056, guid: d77c08e46af8a414caf00e8452a41047, type: 3}
-  availableItems:
-  - {fileID: 11400000, guid: e07c6813d117e034a8d312ab25fe3053, type: 2}
-  - {fileID: 11400000, guid: 7d8020a7b48e7594cb502f60f39b13ab, type: 2}
+  availableItems: []
   spawnPoint: {fileID: 1042485317}
   counterPoint: {fileID: 424484720}
   exitPoint: {fileID: 418714522}
@@ -808,6 +798,7 @@ MonoBehaviour:
   maxQueueSize: 3
   spawnInterval: 4
   autoSpawn: 1
+  dayCustomerCount: 5
 --- !u!4 &1237896150
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,6 +1114,8 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   isFingerprintsGenerated: 0
   currentFingerprints: []
+  isBarcodeErased: 0
+  isNewBarcodeAttached: 0
   inventoryIconDisplay: {fileID: 0}
   inventoryNameDisplay: {fileID: 0}
 --- !u!1001 &1612103607
@@ -1932,67 +1925,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.572675, y: 0.2643497}
   m_EdgeRadius: 0
---- !u!1001 &1864325746
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2502826666956185161, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_Name
-      value: Harrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 2502826666956185161, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -37.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 11.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5729233499896970331, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 12289530cb653d44fb0f02d19762484b, type: 3}
 --- !u!1 &1868827307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,4 +2361,3 @@ SceneRoots:
   - {fileID: 1612103607}
   - {fileID: 1071664268}
   - {fileID: 607810153}
-  - {fileID: 1864325746}

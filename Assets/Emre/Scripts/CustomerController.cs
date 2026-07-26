@@ -17,16 +17,111 @@ public class CustomerController : MonoBehaviour
 
     [Header("Müşterinin Eşyası")]
     public ItemData assignedItem;
+    [Tooltip("Eğer doğarken atanmadıysa kullanılabilecek varsayılan eşya havuzu")]
+    public ItemData[] possibleItems;
+
+    [Header("Görsel Gösterim")]
+    [Tooltip("Müşterinin üzerinde taşıdığı eşyanın ikonu/görseli (Boş bırakılırsa otomatik oluşturulur)")]
+    public SpriteRenderer itemDisplayRenderer;
 
     private Vector3 currentTargetPosition;
     private Vector3 exitPosition;
+
+    private void Start()
+    {
+        if (assignedItem == null)
+        {
+            TryAssignRandomItem();
+        }
+        else
+        {
+            UpdateItemDisplay();
+        }
+    }
 
     public void Setup(Vector3 initialTargetPos, Vector3 exitPos, ItemData item = null)
     {
         this.currentTargetPosition = initialTargetPos;
         this.exitPosition = exitPos;
-        this.assignedItem = item;
+        if (item != null)
+        {
+            this.assignedItem = item;
+        }
+        else if (this.assignedItem == null)
+        {
+            TryAssignRandomItem();
+        }
+
+        UpdateItemDisplay();
         currentState = CustomerState.WalkingToPosition;
+    }
+
+    private void TryAssignRandomItem()
+    {
+        if (possibleItems != null && possibleItems.Length > 0)
+        {
+            assignedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+        }
+        else
+        {
+            // Editörde veya Resources'da bulunan ItemData'ları ara
+            ItemData[] allItems = Resources.LoadAll<ItemData>("");
+            if (allItems != null && allItems.Length > 0)
+            {
+                assignedItem = allItems[Random.Range(0, allItems.Length)];
+            }
+        }
+    }
+
+    public void UpdateItemDisplay()
+    {
+        if (assignedItem == null) return;
+
+        if (itemDisplayRenderer == null)
+        {
+            Transform existingChild = transform.Find("ItemDisplay");
+            if (existingChild != null)
+            {
+                itemDisplayRenderer = existingChild.GetComponent<SpriteRenderer>();
+            }
+            else
+            {
+                GameObject child = new GameObject("ItemDisplay");
+                child.transform.SetParent(transform);
+                child.transform.localPosition = new Vector3(0.35f, 0.35f, 0f);
+                child.transform.localScale = new Vector3(0.45f, 0.45f, 1f);
+
+                itemDisplayRenderer = child.AddComponent<SpriteRenderer>();
+                SpriteRenderer parentSR = GetComponent<SpriteRenderer>();
+                if (parentSR != null)
+                {
+                    itemDisplayRenderer.sortingLayerID = parentSR.sortingLayerID;
+                    itemDisplayRenderer.sortingOrder = parentSR.sortingOrder + 1;
+                }
+            }
+        }
+
+        if (itemDisplayRenderer != null)
+        {
+            Sprite itemSprite = GetItemSprite(assignedItem);
+            if (itemSprite != null)
+            {
+                itemDisplayRenderer.sprite = itemSprite;
+                itemDisplayRenderer.enabled = true;
+            }
+        }
+    }
+
+    private Sprite GetItemSprite(ItemData item)
+    {
+        if (item == null) return null;
+        if (item.itemIcon != null) return item.itemIcon;
+        if (item.itemPrefab != null)
+        {
+            SpriteRenderer sr = item.itemPrefab.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) return sr.sprite;
+        }
+        return null;
     }
 
     // Sıra ilerlediğinde müşteriye yeni hedefini verir
@@ -70,7 +165,19 @@ public class CustomerController : MonoBehaviour
 
     public ItemData GiveItemToPlayer()
     {
+        if (assignedItem == null)
+        {
+            TryAssignRandomItem();
+        }
+
         ItemData itemToGive = assignedItem;
+
+        // Eşya verildikten sonra müşterinin elindeki eşya görselini gizle
+        if (itemDisplayRenderer != null)
+        {
+            itemDisplayRenderer.enabled = false;
+        }
+
         Debug.Log($"<color=cyan>[Customer]</color> Müşteri eşyasını oyuncuya verdi: {(itemToGive != null ? itemToGive.itemName : "Bilinmeyen Eşya")}");
         return itemToGive;
     }

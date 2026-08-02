@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 77a94cd4553951c45b97af6a479de5f0
+guid: 78ba75a5baa068f4096a474bc0b0b547
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1834922850235826129
-    second: rakun_sol_animasyon_0
+      213: -2372518359723530231
+    second: rakun_front_walk_0
   - first:
-      213: 7395775236903140548
-    second: rakun_sol_animasyon_1
+      213: 6791952605091780317
+    second: rakun_front_walk_1
   - first:
-      213: 8907231465920657290
-    second: rakun_sol_animasyon_2
+      213: -5357987662545866985
+    second: rakun_front_walk_2
   - first:
-      213: 6801183649002411665
-    second: rakun_sol_animasyon_3
+      213: -7973495936199998031
+    second: rakun_front_walk_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,34 +109,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rakun_sol_animasyon_0
+      name: rakun_front_walk_0
       rect:
         serializedVersion: 2
-        x: 350
-        y: 180
-        width: 323
-        height: 661
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1dfbd864c94f67910800000000000000
-      internalID: 1834922850235826129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rakun_sol_animasyon_1
-      rect:
-        serializedVersion: 2
-        x: 1380
-        y: 181
-        width: 311
+        x: 265
+        y: 124
+        width: 498
         height: 670
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -146,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4ccfd3ab46213a660800000000000000
-      internalID: 7395775236903140548
+      spriteID: 90826993f1f131fd0800000000000000
+      internalID: -2372518359723530231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rakun_sol_animasyon_2
+      name: rakun_front_walk_1
       rect:
         serializedVersion: 2
-        x: 2398
-        y: 180
-        width: 323
-        height: 662
+        x: 1288
+        y: 122
+        width: 498
+        height: 667
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,19 +146,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a87f16263d7dc9b70800000000000000
-      internalID: 8907231465920657290
+      spriteID: dd6d8c5b8ecd14e50800000000000000
+      internalID: 6791952605091780317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rakun_sol_animasyon_3
+      name: rakun_front_walk_2
       rect:
         serializedVersion: 2
-        x: 3428
-        y: 181
-        width: 311
+        x: 2311
+        y: 124
+        width: 498
         height: 670
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -190,8 +168,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 196dbfa9e78a26e50800000000000000
-      internalID: 6801183649002411665
+      spriteID: 71f2707db9a94a5b0800000000000000
+      internalID: -5357987662545866985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rakun_front_walk_3
+      rect:
+        serializedVersion: 2
+        x: 3334
+        y: 122
+        width: 498
+        height: 667
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b547c001b3785190800000000000000
+      internalID: -7973495936199998031
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rakun_sol_animasyon_0: 1834922850235826129
-      rakun_sol_animasyon_1: 7395775236903140548
-      rakun_sol_animasyon_2: 8907231465920657290
-      rakun_sol_animasyon_3: 6801183649002411665
+      rakun_front_walk_0: -2372518359723530231
+      rakun_front_walk_1: 6791952605091780317
+      rakun_front_walk_2: -5357987662545866985
+      rakun_front_walk_3: -7973495936199998031
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

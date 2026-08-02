@@ -26,17 +26,78 @@ public class PackingGameManager : MonoBehaviour
     [Tooltip("Bu paketleme masasının bağlı olduğu InteractableDesk (Get Packed Gun'da minigame'i tamamlatmak için)")]
     public InteractableDesk parentDesk;
 
-    private int selectedPackIndex = -1; 
+    private int selectedPackIndex = -1;
+    private int selectedStickerIndex = -1;
     private bool isPackTableClosed = false;
     private bool isStickerPlaced = false;
 
     void Start()
     {
+        if (parentDesk == null)
+        {
+            parentDesk = GetComponentInParent<InteractableDesk>();
+        }
+
+        SetupStickerButtonVisuals();
         ResetGame();
+    }
+
+    private void OnEnable()
+    {
+        if (parentDesk == null)
+        {
+            parentDesk = GetComponentInParent<InteractableDesk>();
+        }
+
+        SetupStickerButtonVisuals();
+        ResetGame();
+        OnPutGunPressed();
+    }
+
+    private void SetupStickerButtonVisuals()
+    {
+        if (stickerButtons == null || stickerSprites == null) return;
+
+        for (int i = 0; i < stickerButtons.Length; i++)
+        {
+            if (stickerButtons[i] == null) continue;
+
+            // Eğer ilgili indekste sprite varsa butonun Image component'ine ata
+            if (i < stickerSprites.Length && stickerSprites[i] != null)
+            {
+                Image btnImg = stickerButtons[i].GetComponent<Image>();
+                if (btnImg != null)
+                {
+                    btnImg.sprite = stickerSprites[i];
+                    btnImg.color = Color.white;
+                    btnImg.preserveAspect = true; // Görselin oranını koru (basık/yassı görünmesini engeller)
+                }
+            }
+
+            // Buton üzerindeki "Sticker", "Sticker 1" gibi yazıları/yazı objelerini gizle
+            var tmpro = stickerButtons[i].GetComponentInChildren<TMPro.TMP_Text>(true);
+            if (tmpro != null)
+            {
+                tmpro.gameObject.SetActive(false);
+            }
+
+            var textLegacy = stickerButtons[i].GetComponentInChildren<Text>(true);
+            if (textLegacy != null)
+            {
+                textLegacy.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void OnPutGunPressed()
     {
+        // Eğer paket zaten seçildiyse veya kapatıldıysa tekrar silah koyulamaz
+        if (isPackTableClosed || selectedPackIndex >= 0)
+        {
+            Debug.LogWarning("<color=yellow>[PackingGameManager]</color> Kutu seçildiği veya kapatıldığı için tekrar silah koyulamaz.");
+            return;
+        }
+
         UpdateGunVisual();
         gunObject.SetActive(true);
     }
@@ -94,6 +155,8 @@ public class PackingGameManager : MonoBehaviour
         if (isStickerPlaced) return;          // sadece 1 sticker koyulabilir
         if (selectedPackIndex < 0) return;    // kontrol
 
+        selectedStickerIndex = stickerIndex;
+
         RectTransform targetTableRect = packTable.GetComponent<RectTransform>();
 
         StickerDragHandler dragHandler =
@@ -118,11 +181,29 @@ public class PackingGameManager : MonoBehaviour
 
     public void OnGetPackedGunPressed()
     {
+        if (PlayerInventory.Instance != null)
+        {
+            PlayerInventory.Instance.appliedPackIndex = selectedPackIndex;
+            PlayerInventory.Instance.appliedStickerIndex = selectedStickerIndex;
+
+            if (PlayerInventory.Instance.itemStage == 2)
+            {
+                PlayerInventory.Instance.AdvanceItemStage();
+            }
+
+            Debug.Log($"<color=cyan>[PackingGameManager]</color> Paketleme tamamlandı! Aşama 3 yapıldı. Kutu: {selectedPackIndex}, Sticker: {selectedStickerIndex}");
+        }
+
+        InteractableDesk targetDesk = parentDesk;
+        if (targetDesk == null) targetDesk = GetComponentInParent<InteractableDesk>();
+        if (targetDesk == null) targetDesk = FindObjectOfType<InteractableDesk>();
+
         ResetGame();
 
-        if (parentDesk != null)
+        // "E" tuşuna basılmış gibi masadan doğrudan çık ve oyuncuyu/kamerayı eski haline getir
+        if (targetDesk != null)
         {
-            parentDesk.CompleteDeskMinigame();
+            targetDesk.CloseDesk();
         }
     }
 
@@ -146,6 +227,7 @@ public class PackingGameManager : MonoBehaviour
         getPackedGunButton.interactable = false;
 
         selectedPackIndex = -1;
+        selectedStickerIndex = -1;
         isPackTableClosed = false;
         isStickerPlaced = false;
     }

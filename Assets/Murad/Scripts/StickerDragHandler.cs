@@ -61,15 +61,25 @@ public class StickerDragHandler : MonoBehaviour
     {
         if (!isDragging) return;
 
-        // Sticker'ı sabit boyutta tutup sadece pozisyonunu mouse'a göre güncelle
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            ParentCanvas.transform as RectTransform,
-            Mouse.current.position.ReadValue(),
-            ParentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : ParentCanvas.worldCamera,
-            out localPoint);
+        // Sticker'ı tam olarak fare imlecinin altında tut (Parent scale/zoom farklarını engellemek için immediate parent kullanılır)
+        RectTransform parentRect = RectTransform.parent as RectTransform;
+        if (parentRect == null) parentRect = ParentCanvas.transform as RectTransform;
 
-        RectTransform.localPosition = localPoint;
+        Camera eventCamera = (ParentCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : ParentCanvas.worldCamera;
+        if (eventCamera == null && ParentCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
+            eventCamera = Camera.main;
+        }
+
+        Vector2 localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            Mouse.current.position.ReadValue(),
+            eventCamera,
+            out localPoint))
+        {
+            RectTransform.anchoredPosition = localPoint;
+        }
 
         bool isValidPosition = IsFullyInsidePackTable();
         Image.color = isValidPosition ? validColor : invalidColor;

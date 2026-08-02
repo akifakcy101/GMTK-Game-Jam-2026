@@ -11,6 +11,12 @@ public class CustomerSpawner : MonoBehaviour
     [Tooltip("Müşterilerin doğarken rastgele alacağı eşyalar (ItemData)")]
     public ItemData[] availableItems;
 
+    [Header("Paket & Sticker İpuçları Havuzu")]
+    [Tooltip("Toplam kaç farklı paket çeşidi var? (0: Carton, 1: Container, 2: Foil vb.)")]
+    public int totalPackTypes = 3;
+    [Tooltip("Toplam kaç farklı sticker çeşidi var? (0, 1, 2 vb.)")]
+    public int totalStickerTypes = 3;
+
     [Header("Noktalar")]
     [Tooltip("Müşterinin ilk doğacağı nokta")]
     public Transform spawnPoint;
@@ -119,7 +125,11 @@ public class CustomerSpawner : MonoBehaviour
             randomItem = availableItems[Random.Range(0, availableItems.Length)];
         }
 
-        customer.Setup(targetPos, exitPoint.position, randomItem);
+        // Rastgele paket ve sticker isteği seç
+        int randomPackIndex = Random.Range(0, totalPackTypes);
+        int randomStickerIndex = Random.Range(0, totalStickerTypes);
+
+        customer.Setup(targetPos, exitPoint.position, randomItem, randomPackIndex, randomStickerIndex);
         customerQueue.Add(customer);
 
         // ----------------------------------------------
@@ -211,7 +221,7 @@ public class CustomerSpawner : MonoBehaviour
         var durations = new List<float>();
         for (int i = 1; i <= count; i++)
         {
-            durations.Add(Random.Range(60f * i, 80f * i));
+            durations.Add(Random.Range(30f * i, 40f * i));
         }
 
         // Fisher-Yates shuffle

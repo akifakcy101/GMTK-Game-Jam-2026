@@ -99,6 +99,11 @@ public class InteractableDesk : MonoBehaviour
         if (deskMechanicUI != null)
         {
             deskMechanicUI.SetActive(true);
+            PackingGameManager manager = deskMechanicUI.GetComponentInChildren<PackingGameManager>(true);
+            if (manager != null)
+            {
+                manager.parentDesk = this;
+            }
             Debug.Log($"<color=green>[InteractableDesk]</color> Masa {requiredItemStage + 1} açıldı: {deskMechanicUI.name}");
         }
 
@@ -158,8 +163,8 @@ public class InteractableDesk : MonoBehaviour
             if (sr != null) sr.enabled = true;
         }
 
-        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet (MasaYonetici bağlı değilse)
-        if (masaYonetici == null && autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
+        // Placeholder olarak masa kapatıldığında aşamayı otomatik ilerlet (Yalnızca masa mekaniği ve MasaYonetici bağlı değilse)
+        if (masaYonetici == null && deskMechanicUI == null && autoAdvanceOnClose && PlayerInventory.Instance != null && PlayerInventory.Instance.itemStage == requiredItemStage)
         {
             PlayerInventory.Instance.AdvanceItemStage();
         }

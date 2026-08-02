@@ -36,6 +36,12 @@ public class PlayerInventory : MonoBehaviour
     public bool isBarcodeErased = false;
     public bool isNewBarcodeAttached = false;
 
+    [Header("Masa 3 Verileri (Paketleme Sipariş İsteği)")]
+    public int requestedPackIndex = -1;
+    public int requestedStickerIndex = -1;
+    public int appliedPackIndex = -1;
+    public int appliedStickerIndex = -1;
+
     [Header("Arayüz Gösterimi (İsteğe Bağlı)")]
     public Image inventoryIconDisplay;
     public TextMeshProUGUI inventoryNameDisplay;
@@ -57,11 +63,15 @@ public class PlayerInventory : MonoBehaviour
         UpdateInventoryUI();
     }
 
-    public void ReceiveItemFromCustomer(ItemData item)
+    public void ReceiveItemFromCustomer(ItemData item, int packIndex = 0, int stickerIndex = 0)
     {
         hasItem = true;
         itemStage = 0; // Ham aşama
         currentItem = item;
+        requestedPackIndex = packIndex;
+        requestedStickerIndex = stickerIndex;
+        appliedPackIndex = -1;
+        appliedStickerIndex = -1;
 
         // Masa 1 ve Masa 2 kalıcı verilerini sıfırla
         isFingerprintsGenerated = false;
@@ -70,7 +80,7 @@ public class PlayerInventory : MonoBehaviour
         isNewBarcodeAttached = false;
 
         string nameStr = currentItem != null ? currentItem.itemName : "Bilinmeyen Eşya";
-        Debug.Log($"<color=cyan>[Inventory]</color> Müşteriden eşya alındı: {nameStr} (Aşama 0)");
+        Debug.Log($"<color=cyan>[Inventory]</color> Müşteriden eşya alındı: {nameStr} (Aşama 0), İstek -> Paket: {requestedPackIndex}, Sticker: {requestedStickerIndex}");
 
         UpdateInventoryUI();
     }
@@ -89,6 +99,10 @@ public class PlayerInventory : MonoBehaviour
         hasItem = false;
         itemStage = -1;
         currentItem = null;
+        requestedPackIndex = -1;
+        requestedStickerIndex = -1;
+        appliedPackIndex = -1;
+        appliedStickerIndex = -1;
         isFingerprintsGenerated = false;
         currentFingerprints.Clear();
         isBarcodeErased = false;
@@ -97,7 +111,7 @@ public class PlayerInventory : MonoBehaviour
         UpdateInventoryUI();
     }
 
-    private void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
         if (inventoryIconDisplay != null)
         {

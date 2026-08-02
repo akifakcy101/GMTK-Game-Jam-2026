@@ -19,7 +19,28 @@ public class CustomerCountdown : MonoBehaviour
     {
         remainingTime = seconds;
         isRunning = true;
+        if (countdownText != null)
+        {
+            countdownText.gameObject.SetActive(true);
+        }
         UpdateCountdownUI();
+    }
+
+    public void StopCountdown()
+    {
+        isRunning = false;
+        if (countdownText != null)
+        {
+            countdownText.gameObject.SetActive(false);
+        }
+    }
+
+    public void ReduceTime(float seconds)
+    {
+        if (!isRunning) return;
+        remainingTime = Mathf.Max(0f, remainingTime - seconds);
+        UpdateCountdownUI();
+        Debug.LogWarning($"<color=orange>[CustomerCountdown]</color> Müşteri süresi {seconds:F1}s kısaltıldı! Kalan: {remainingTime:F1}s");
     }
 
     private void Update()

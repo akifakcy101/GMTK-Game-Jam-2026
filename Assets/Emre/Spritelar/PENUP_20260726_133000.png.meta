@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 7641517f63955a741a9b99d6bb3d1c84
+guid: 5cb684913ed36a4498084e276cc21b26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8809455273985295523
-    second: "rakun_sa\u011F_animasyon_0"
-  - first:
-      213: 9210340382521309906
-    second: "rakun_sa\u011F_animasyon_1"
-  - first:
-      213: 3918951663179015777
-    second: "rakun_sa\u011F_animasyon_2"
-  - first:
-      213: -812266431189991873
-    second: "rakun_sa\u011F_animasyon_3"
+      213: -6765447006035139596
+    second: PENUP_20260726_133000_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "rakun_sa\u011F_animasyon_0"
+      name: PENUP_20260726_133000_0
       rect:
         serializedVersion: 2
-        x: 357
-        y: 181
-        width: 311
-        height: 670
+        x: 0
+        y: 0
+        width: 1920
+        height: 901
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d5b3a615a178eb580800000000000000
-      internalID: -8809455273985295523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "rakun_sa\u011F_animasyon_1"
-      rect:
-        serializedVersion: 2
-        x: 1375
-        y: 180
-        width: 323
-        height: 662
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2da3e9887c3b1df70800000000000000
-      internalID: 9210340382521309906
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "rakun_sa\u011F_animasyon_2"
-      rect:
-        serializedVersion: 2
-        x: 2405
-        y: 181
-        width: 311
-        height: 670
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 16626bf26c9e26630800000000000000
-      internalID: 3918951663179015777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "rakun_sa\u011F_animasyon_3"
-      rect:
-        serializedVersion: 2
-        x: 3423
-        y: 180
-        width: 323
-        height: 661
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3e32f10cff3ab4f0800000000000000
-      internalID: -812266431189991873
+      spriteID: 4f3ab8afacd4c12a0800000000000000
+      internalID: -6765447006035139596
       vertices: []
       indices: 
       edges: []
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "rakun_sa\u011F_animasyon_0": -8809455273985295523
-      "rakun_sa\u011F_animasyon_1": 9210340382521309906
-      "rakun_sa\u011F_animasyon_2": 3918951663179015777
-      "rakun_sa\u011F_animasyon_3": -812266431189991873
+      PENUP_20260726_133000_0: -6765447006035139596
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

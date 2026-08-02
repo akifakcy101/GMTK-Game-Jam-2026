@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 981e6ac91cb48b54ea5ec52b92959a6c
+guid: 9d4ed9347f0c76448aa533d214e80073
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6470824193493768664
-    second: rakun_arka_animasyon_0
-  - first:
-      213: -381863091461680687
-    second: rakun_arka_animasyon_1
-  - first:
-      213: -8159807218827966484
-    second: rakun_arka_animasyon_2
-  - first:
-      213: 5599577019161589861
-    second: rakun_arka_animasyon_3
+      213: -2475292486153505678
+    second: PENUP_20260726_050443_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rakun_arka_animasyon_0
+      name: PENUP_20260726_050443_0
       rect:
         serializedVersion: 2
-        x: 265
-        y: 119
-        width: 498
-        height: 672
+        x: 17
+        y: 22
+        width: 358
+        height: 169
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 826ecce0ea30336a0800000000000000
-      internalID: -6470824193493768664
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rakun_arka_animasyon_1
-      rect:
-        serializedVersion: 2
-        x: 1289
-        y: 119
-        width: 498
-        height: 668
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d11890aa8953baf0800000000000000
-      internalID: -381863091461680687
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rakun_arka_animasyon_2
-      rect:
-        serializedVersion: 2
-        x: 2311
-        y: 119
-        width: 498
-        height: 672
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce74716219a82ce80800000000000000
-      internalID: -8159807218827966484
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rakun_arka_animasyon_3
-      rect:
-        serializedVersion: 2
-        x: 3333
-        y: 119
-        width: 498
-        height: 668
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 568319f81a1b5bd40800000000000000
-      internalID: 5599577019161589861
+      spriteID: 27470a7399ef5add0800000000000000
+      internalID: -2475292486153505678
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 20af6c2bf14c6f649ac3596e93bb907a
+    spriteID: 76fc0d18d39d673428c5fda3a600e2aa
     internalID: 0
     vertices: []
     indices: 
@@ -208,14 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      rakun_arka_animasyon_0: -6470824193493768664
-      rakun_arka_animasyon_1: -381863091461680687
-      rakun_arka_animasyon_2: -8159807218827966484
-      rakun_arka_animasyon_3: 5599577019161589861
+      PENUP_20260726_050443_0: -2475292486153505678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

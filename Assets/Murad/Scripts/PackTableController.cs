@@ -33,8 +33,18 @@ public class PackTableController : MonoBehaviour
             {
                 var img = packVariants[i].packObject.GetComponent<Image>();
                 var btn = packVariants[i].packObject.GetComponent<Button>();
-                img.sprite = packVariants[i].openSprite;
-                btn.interactable = true;
+                if (img != null)
+                {
+                    img.sprite = packVariants[i].openSprite;
+                    img.color = Color.white;
+                }
+                if (btn != null)
+                {
+                    ColorBlock cb = btn.colors;
+                    cb.disabledColor = Color.white;
+                    btn.colors = cb;
+                    btn.interactable = true;
+                }
             }
         }
     }
@@ -45,8 +55,19 @@ public class PackTableController : MonoBehaviour
         var img = packVariants[packIndex].packObject.GetComponent<Image>();
         var btn = packVariants[packIndex].packObject.GetComponent<Button>();
 
-        img.sprite = packVariants[packIndex].closedSprite;
-        btn.interactable = false;   // tekrar tıklanmasın
+        if (img != null)
+        {
+            img.sprite = packVariants[packIndex].closedSprite;
+            img.color = Color.white;
+        }
+
+        if (btn != null)
+        {
+            ColorBlock cb = btn.colors;
+            cb.disabledColor = Color.white;
+            btn.colors = cb;
+            btn.interactable = false;   // tekrar tıklanmasın
+        }
 
         gameManager.OnPackTableClicked();
     }
